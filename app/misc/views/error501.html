@@ -1,0 +1,40 @@
+<div id="content">
+				<!-- row -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="text-center error-box">
+									<h1 class="error-text error-text-500 tada animated"><i class="fa fa-times-circle text-danger error-icon-shadow"></i> {{::'global.page501.title' | translate}}</h1>
+									<h2 class="font-xl"><strong>{{::'global.page501.subtitle' | translate}}</strong></h2>
+									<br>
+									<p class="lead semi-bold">
+										<strong>{{::'global.page501.description1' | translate}}</strong><br>
+										<strong><small>{{::'global.page501.description2' | translate}}</small></strong><br>
+									</p>
+									<ul class="text-left font-md">
+										<li><small>{{::'global.page501.action1' | translate}}</small></li>
+										<li><small>{{::'global.page501.action2' | translate}}</small></li>
+									</ul>
+									<br>
+
+									<div ng-hide="exception===null" class="well text-left highlight">
+										<h5>
+											<code class="html background-transparent">
+												<span><strong>{{::'global.page501.exception.message' | translate}}</strong></span> {{exception.message}}<br>
+												<span><strong>{{::'global.page501.exception.fileName' | translate}}</strong></span> {{exception.fileName}}<br>
+												<span><strong>{{::'global.page501.exception.filePosition' | translate}}</strong></span> {{exception.lineNumber}}/{{exception.columnNumber}}<br>
+												<span><strong>{{::'global.page501.exception.cause' | translate}}</strong></span> {{cause}}<br><br>
+												<span><strong>{{::'global.page501.exception.stack' | translate}}</strong></span><pre> {{exception.stack}}</pre>
+											</code>
+										</h5>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end row -->
+			</div>

@@ -1,0 +1,190 @@
+<sidebar opened="sidebarOpened">
+  
+  <form class="form-horizontal">
+    <fieldset>
+      
+      <div class="col-xs-12 col-md-12">
+        <!-- Γεωγραφική Δομή -->
+        <result-args
+          ng-show="showAdminUnit"
+          general="args.general"
+          geographical-unit-id="args.geographicalUnitId"
+          decentral-admin-id="args.decentralAdminId"
+          region-id="args.regionId"
+          regional-unit-id="args.regionalUnitId"
+          municipality-id="args.municipalityId"
+          municipal-unit-id="args.municipalUnitId"
+          foreign="args.foreign"
+          foreign-country-iso-code="args.foreignCountryIsoCode"
+          foreign-city="args.foreignCity"
+          election-center-id="args.electionCenterId"
+          election-department-id="args.electionDepartmentId"
+          set-clear="setClear(theDirFn)"
+          hide-foreign-option="::true"
+          hide-foreign-city="::true"
+          get-data-values="adminUnitDataValues(theDirFn)"
+          init-lists="setInitAdminUnitLists(theDirFn)"
+          horizontal-layout="::true">
+        </result-args>
+      </div>
+    
+    </fieldset>
+    
+    <div class="cr-btn-group cr-btn-group-centered">
+      
+      <hr/>
+      
+      <button type="submit" class="btn btn-primary"
+        ng-click="retrieve()"
+        ng-disabled="retrieveLoading"
+        ng-if="::hasPermission('rs.result')"
+        button-spinner="retrieveLoading"
+        button-prepend="fa fa-search">
+        <small>{{::'global.retrieve' | translate}}</small>
+      </button>
+      
+      <button type="button" ng-if="::hasPermission('rs.result')" class="btn btn-info" ng-click="clearArguments()">
+        <i class="fa fa-trash"></i>
+        <small>{{::'global.clear' | translate}}</small>
+      </button>
+    
+    </div>
+  
+  </form>
+</sidebar>
+
+<div id="content">
+  
+  <div class="cr-btn-group-actions">
+    
+    <button type="submit" ng-if="::hasPermission('rs.result')" class="btn btn-primary btn-sm"
+      ng-click="retrieve()"
+      ng-disabled="retrieveLoading"
+      button-spinner="retrieveLoading"
+      button-prepend="fa fa-search">
+      <small>{{::'global.retrieve' | translate}}</small>
+    </button>
+    
+    <button type="button" ng-if="::hasPermission('rs.result')" class="btn btn-info btn-sm" ng-click="openSidebar()">
+      <i class="fa fa-filter"></i>&nbsp;
+      <small>{{::'rs.display.view.showFilters' | translate}}</small>
+    </button>
+    
+    <ui-toggle class="toggle-info toggle-xs pull-right"
+      ng-if="::hasPermission('rs.result')"
+      label="{{::'rs.display.view.autoRefresh' | translate}}"
+      ng-model="autoRefresh"
+      ng-change="toggleAutoRefresh(autoRefresh)">
+    </ui-toggle>
+          
+  </div>
+  
+  <br>
+
+  <!-- Success/Error Messages -->
+  <success-error alerts="alerts"></success-error>
+  
+  <section>
+    
+    <div class="row">
+  
+      <article class="col-xs-12">
+        <breadcrumb crumbs="filters" on-click="onBreadcrumbClick(item)"></breadcrumb>
+      </article>
+      
+    </div>
+    
+    <div class="row">
+      
+      <article class="col-xs-12 col-md-12">
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">{{::'rs.display.view.results' | translate}}</div>
+          <div class="panel-body cr-panel-args">
+            
+            <article class="col-xs-12 col-md-9">
+              <candidate-results-chart
+                election-procedure-id="::currentElectionProcedure.id"
+                model="result"
+                chart="::true"
+                values-font-size="14">
+              </candidate-results-chart>
+            </article>
+            
+            <article class="col-xs-6 col-md-3 gen-results">
+              
+              <div class="row">
+                <div class="col-xs-6 col-md-6">
+                  <span class="text-right">{{::'rs.display.view.lastUpdate' | translate}}:</span>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                  <span class="text-danger"><strong>{{result.calculationDateTime | date:'dd/MM/yyyy HH:mm:ss'}}</strong></span>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-xs-6 col-md-6">
+                  <span class="text-right">{{::'rs.display.view.nextUpdate' | translate}}:</span>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                  <span class="text-danger"><strong>{{result.nextCalculationDateTime | date:'dd/MM/yyyy HH:mm:ss'}}</strong></span>
+                </div>
+              </div>
+              
+              <br>
+              
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <span>{{'rs.display.view.departmentCountResults' | translate}}:</span>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <span><strong>{{'rs.display.view.departmentCount' | translate: departmentCountData}}</strong></span>
+                </div>
+              </div>
+              
+              <br>
+              
+              <div class="table-responsive">
+                <table id="resultTable" class="table">
+                  <tbody>
+                    <tr>
+                      <td>{{::'rs.display.view.totalVotes' | translate}}:</td>
+                      <td>{{result.totalVotes}}</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>{{::'rs.display.view.totalAndWhiteSum' | translate}}:</td>
+                      <td>{{result.invalidVotes + result.whiteVotes}}</td>
+                      <td>({{totalAndWhiteSumPercentage || 0}}%)</td>
+                    </tr>
+                    <tr>
+                      <td>{{::'rs.display.view.validVotes' | translate}}:</td>
+                      <td>{{result.validVotes}}</td>
+                      <td>({{validVotesPercentage || 0}}%)</td>
+                    </tr>
+                    <tr>
+                      <td>{{::'rs.display.view.invalidVotes' | translate}}:</td>
+                      <td>{{result.invalidVotes}}</td>
+                      <td>({{invalidVotesPercentage || 0}}%)</td>
+                    </tr>
+                    <tr>
+                      <td>{{::'rs.display.view.whiteVotes' | translate}}:</td>
+                      <td>{{result.whiteVotes}}</td>
+                      <td>({{whiteVotesPercentage || 0}}%)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+            </article>
+            
+          </div>
+        </div>
+      
+      </article>
+      
+    </div>
+      
+  </section>
+
+</div>

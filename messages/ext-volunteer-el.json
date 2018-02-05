@@ -1,0 +1,10 @@
+{
+  "ext.volunteer.list.args.lastName": "Επώνυμο",
+  "ext.volunteer.list.args.firstName": "Όνομα",
+  
+  "ext.volunteer.list.grid.publicIdentifier": "Μοναδικός Κωδικός",
+  "ext.volunteer.list.grid.eklSpecialNo": "Ειδ. Εκλ. Αριθμός",
+  "ext.volunteer.list.grid.lastName": "Επώνυμο",
+  "ext.volunteer.list.grid.firstName": "Όνομα",
+  "ext.volunteer.list.grid.email": "E-mail"
+}

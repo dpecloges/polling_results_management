@@ -1,0 +1,12 @@
+
+<div class="success-error-container">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+        <div class="alert-container">
+            <div class="{{alert.type}}-alert">
+            </div>
+            <div ng-bind-html="alert.msg" class="alert-html">
+            </div>
+        </div>
+    </alert>
+</div>
+

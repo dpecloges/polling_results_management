@@ -1,0 +1,79 @@
+<article ng-switch="type">
+    
+    <!-- DATE -->
+    <div class="input-group" ng-switch-when="0">
+        <input type="text" class="form-control" name="{{name}}"
+               datetime-picker="dd/MM/yyyy"
+               ng-model="$parent.model"
+               ui-mask="99/99/9999"
+               model-view-value="true"
+               is-open="$parent.isOpenD"
+               today-text="Σήμερα"
+               now-text="Τώρα"
+               date-text="Ημ/νία"
+               time-text="Ώρα"
+               clear-text="Καθ."
+               close-text="Κλείσιμο"
+               enable-time="false"
+               ng-change="dateChanged()"
+               ng-disabled="$parent.disabled || ($parent.changeable && !$parent.changeable({elem: name}))"
+        />
+        <span class="input-group-btn width-30">
+            <button type="button" class="btn btn-default datepickerBtn" ng-click="$parent.openCalendarD()" ng-disabled="$parent.disabled || ($parent.changeable && !$parent.changeable({elem: name}))">
+                <i class="fa fa-calendar"></i>
+            </button>
+        </span>
+    </div>
+    
+    <!-- YEAR -->
+    <div class="input-group" ng-switch-when="1">
+        <input type="text" class="form-control" name="{{name}}"
+               datepicker-popup="{{yearOptions.formatYear}}"
+               ui-mask="9999"
+               model-view-value="true"
+               ng-model="$parent.model"
+               ng-change="dateChanged()"
+               ng-model-options="{allowInvalid: true}"
+               ng-disabled="$parent.disabled || ($parent.changeable && !$parent.changeable({elem: name}))"
+               is-open="$parent.isOpenY"
+               datepicker-options="yearOptions"
+        />
+        <span class="input-group-btn width-30">
+            <button type="button" class="btn btn-default datepickerBtn" ng-click="$parent.openCalendarY($event)" ng-disabled="$parent.disabled || ($parent.changeable && !$parent.changeable({elem: name}))">
+                <i class="fa fa-calendar"></i>
+            </button>
+        </span>
+    </div>
+    
+    <!-- DATETIME -->
+    <div class="input-group" ng-switch-default>
+        <input type="text" class="form-control"
+               datetime-picker="dd/MM/yyyy HH:mm"
+               ng-model="$parent.model"
+               ui-mask="99/99/9999 99:99"
+               model-view-value="true"
+               is-open="$parent.isOpenDt"
+               today-text="Σήμερα"
+               now-text="Τώρα"
+               date-text="Ημ/νία"
+               time-text="Ώρα"
+               clear-text="Καθ."
+               close-text="Κλείσιμο"
+               enable-time="true"
+               ng-disabled="$parent.disabled || ($parent.changeable && !$parent.changeable({elem: name}))"
+               ng-focus="$parent.setDateTimeValueIfEmpty()"
+        />
+        <span class="input-group-btn width-30">
+            <button type="button" class="btn btn-default datepickerBtn" ng-click="$parent.openCalendarDt()" ng-disabled="$parent.disabled || ($parent.changeable && !$parent.changeable({elem: name}))">
+                <i class="fa fa-calendar"></i>
+            </button>
+        </span>
+        <span class="input-group-btn" ng-show="$parent.suggestFireDate">
+            <a href-void class="btn btn-default inputGroupBtn" ng-disabled="$parent.disabled || ($parent.changeable && !$parent.changeable({elem: name}))"
+               data-tooltip-placement="bottom" data-tooltip="{{::'common.scheduleJob.suggestFireDate.tooltip' | translate}}" ng-click="$parent.suggestFireDate()">
+                <i class="fa fa-magic"></i>
+            </a>
+        </span>
+    </div>
+    
+</article>

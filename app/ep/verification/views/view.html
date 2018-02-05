@@ -1,0 +1,326 @@
+<div id="content">
+  
+  <section>
+    
+    <div class="row">
+      
+      <article class="col-xs-12">
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">{{::'global.args' | translate}}</div>
+          <div class="panel-body cr-panel-args">
+            
+            <form class="form-horizontal">
+              <fieldset>
+                
+                <div class="col-xs-12 col-md-6">
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.lastName' | translate}}</label>
+                    <div class="col-xs-5">
+                      <input type="text" class="form-control" ng-model="args.lastName"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.firstName' | translate}}</label>
+                    <div class="col-xs-5">
+                      <input type="text" class="form-control" ng-model="args.firstName"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.fatherFirstName' | translate}}</label>
+                    <div class="col-xs-5">
+                      <input type="text" class="form-control" ng-model="args.fatherFirstName"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.motherFirstName' | translate}}</label>
+                    <div class="col-xs-5">
+                      <input type="text" class="form-control" ng-model="args.motherFirstName"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.birthYear' | translate}}</label>
+                    <div class="col-xs-5">
+                      <input type="text" class="form-control" ng-model="args.birthYear" ui-mask="9999"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.birthDate' | translate}}</label>
+                    <div class="col-xs-5">
+                      <cr-datepicker model="args.birthDate"></cr-datepicker>
+                    </div>
+                  </div>
+                  
+                  <br />
+                  
+                </div>
+                
+                <div class="col-xs-12 col-md-6">
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.eklSpecialNo' | translate}}</label>
+                    <div class="col-xs-5">
+                      <cr-inputnumeric value="args.eklSpecialNo" max-digits="13"></cr-inputnumeric>
+                    </div>
+                  </div>
+                  
+                  <br />
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.voterVerificationNumber' | translate}}</label>
+                    <div class="col-xs-5">
+                      <cr-inputnumeric value="args.voterVerificationNumber" max-digits="10"></cr-inputnumeric>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group" ng-show="::!userElectionDepartmentId">
+                    <label class="control-label col-xs-4">{{::'ep.verification.view.args.voterElectionDepartmentId' | translate}}:</label>
+                    <div class="col-xs-5">
+                      <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="args.voterElectionDepartmentId" ng-options="item.id as item.displayName for item in electionDepartments">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                </div>
+                
+              </fieldset>
+              
+              <div class="cr-btn-group cr-btn-group-centered">
+                
+                <hr/>
+                
+                <button type="submit" class="btn btn-white btn-primary" ng-disabled="searching || saveLoading || undoLoading"
+                        button-spinner="searching" button-prepend="fa fa-search" ng-click="verify()"
+                        ng-if="::hasPermission('ep.verification')">
+                  <small>{{::'global.search' | translate}}</small>
+                </button>
+                
+                <button type="button" class="btn btn-info" ng-click="clearArguments()" ng-if="::hasPermission('ep.verification')"
+                        ng-disabled="searching || saveLoading || undoLoading">
+                  <i class="fa fa-trash"></i>
+                  <small>{{::'global.clear'| translate}}</small>
+                </button>
+                
+              </div>
+            
+            </form>
+          
+          </div>
+        </div>
+        
+        <!-- Success/Error Messages -->
+        <success-error alerts="alerts"></success-error>
+        
+        <div class="panel panel-default" ng-show="verificationResult">
+          <div class="panel-heading">{{::'global.results' | translate}}</div>
+          <div class="panel-body cr-panel-args">
+            
+            <form class="form-horizontal">
+              <fieldset>
+                
+                <div class="col-xs-12 col-md-6">
+                  
+                  <div class="form-group red-color" ng-show="voter.verificationNumber">
+                    <label class="control-label col-xs-6 col-md-6 font-weight-strong">{{::'ep.verification.view.voter.verificationNumber' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6 font-weight-strong">{{voter.verificationNumber}}</label>
+                  </div>
+                  
+                  <div class="form-group red-color">
+                    <label class="control-label col-xs-6 col-md-6 font-weight-strong">{{::'ep.verification.view.eklSpecialNo' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6 font-weight-strong">{{verificationResult.eklSpecialNo}}</label>
+                  </div>
+                  
+                  <div class="form-group red-color">
+                    <label class="control-label col-xs-6 col-md-6 font-weight-strong">{{::'ep.verification.view.hasPreregistrationRecord' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6 font-weight-strong">{{getHasPreregistrationLabel()}}</label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-6 col-md-6">{{::'ep.verification.view.lastName' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6">{{verificationResult.lastName}}</label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-6 col-md-6">{{::'ep.verification.view.firstName' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6">{{verificationResult.firstName}}</label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-6 col-md-6">{{::'ep.verification.view.fatherFirstName' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6">{{verificationResult.fatherFirstName}}</label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-6 col-md-6">{{::'ep.verification.view.motherFirstName' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6">{{verificationResult.motherFirstName}}</label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-6 col-md-6">{{::'ep.verification.view.birthDate' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6">{{verificationResult.birthDate | date:"dd/MM/yyyy"}}</label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-6 col-md-6">{{::'ep.verification.view.municipalRecordNo' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6">{{verificationResult.municipalRecordNo}}</label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-6 col-md-6">{{::'ep.verification.view.municipalUnitDescription' | translate}}:</label>
+                    <label class="control-label-text-left col-xs-6 col-md-6">{{verificationResult.municipalUnitDescription}}</label>
+                  </div>
+                  
+                  <div class="col-xs-12 border-gray-1-rounded my-3" ng-if="verificationResult.hasVoterRecord">
+                    <label class="control-label-text-center col-xs-12 col-md-12 red-color font-weight-strong">{{hasVotedMessage}}</label>
+                    <label class="control-label-text-center col-xs-12 col-md-12 red-color font-weight-strong">{{hasVotedDateTime}}</label>
+                    <label class="control-label-text-center col-xs-12 col-md-12 red-color font-weight-strong">{{hasVotedElectionDepartmentName}}</label>
+                  </div>
+                  
+                </div>
+                
+                <div class="col-xs-12 col-md-6">
+                  
+                  <div ng-if="voter">
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.member' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" class="checkbox style-0" ng-model="voter.member" ng-disabled="!userNoDepartmentOrInVoterDepartment()">
+                          <span></span>
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group" ng-show="!verificationResult.hasPreregistrationRecord">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.payment' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <cr-inputnumeric value="voter.payment" max-digits="7" ng-disabled="!userNoDepartmentOrInVoterDepartment()"></cr-inputnumeric>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group" ng-show="::!userElectionDepartmentId">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.electionDepartmentId' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="voter.electionDepartmentId" ng-disabled="voter.id || !userNoDepartmentOrInVoterDepartment()" ng-options="item.id as item.displayName for item in electionDepartments">
+                          <option value=""></option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.address' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <input type="text" class="form-control" ng-model="voter.address" ng-disabled="!userNoDepartmentOrInVoterDepartment()"/>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.addressNo' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <input type="text" class="form-control" ng-model="voter.addressNo" ng-disabled="!userNoDepartmentOrInVoterDepartment()"/>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.postalCode' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <input type="text" class="form-control" ng-model="voter.postalCode" ng-disabled="!userNoDepartmentOrInVoterDepartment()"/>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.city' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <input type="text" class="form-control" ng-model="voter.city" ng-disabled="!userNoDepartmentOrInVoterDepartment()"/>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.country' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <input type="text" class="form-control" ng-model="voter.country" ng-disabled="!userNoDepartmentOrInVoterDepartment()"/>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.email' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <input type="text" class="form-control" ng-model="voter.email" ng-disabled="!userNoDepartmentOrInVoterDepartment()"/>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.cellphone' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <input type="text" class="form-control" ng-model="voter.cellphone" ng-disabled="!userNoDepartmentOrInVoterDepartment()"/>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.idType' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="voter.idType" ng-disabled="!userNoDepartmentOrInVoterDepartment()">
+                          <option value=""></option>
+                          <option value="POLICE_ID">{{::'ep.verification.view.voter.idType.policeId' | translate}}</option>
+                          <option value="PASSPORT">{{::'ep.verification.view.voter.idType.passport' | translate}}</option>
+                          <option value="OTHER">{{::'ep.verification.view.voter.idType.other' | translate}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="control-label col-xs-4">{{::'ep.verification.view.voter.idNumber' | translate}}:</label>
+                      <div class="col-xs-5">
+                        <input type="text" class="form-control uppercase" ng-model="voter.idNumber" ng-disabled="!userNoDepartmentOrInVoterDepartment()"/>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+                
+                <div class="col-xs-12">
+                  
+                  <div class="cr-btn-group cr-btn-group-centered">
+                   <button type="button" class="btn btn-white btn-success" ng-if="!voter.id && hasPermission('ep.voter')"
+                            ng-disabled="saveLoading" button-spinner="saveLoading" button-prepend="fa fa-save" ng-click="saveVoter()">
+                      <small>{{::'ep.verification.view.createVoter.button' | translate}}</small>
+                    </button>
+                    
+                    <button type="button" class="btn btn-white btn-success" ng-if="voter.id && userNoDepartmentOrInVoterDepartment() && hasPermission('ep.voter')"
+                            ng-disabled="saveLoading || undoLoading" button-spinner="saveLoading" button-prepend="fa fa-save" ng-click="saveVoter()">
+                      <small>{{::'ep.verification.view.updateVoter.button' | translate}}</small>
+                    </button>
+                    
+                    <undo-vote ng-if="voter.id && userNoDepartmentOrInVoterDepartment() && hasPermission('ep.voter.undo')"
+                               undo-vote-execution="undoVoteExecution(undoReason)"
+                               ng-disabled="undoLoading || saveLoading"
+                               undo-loading="undoLoading">
+                    </undo-vote>
+                    
+                  </div>
+                  
+                </div>
+                
+              </fieldset>
+              
+            </form>
+          
+          </div>
+        </div>
+        
+      </article>
+      
+    </div>
+    
+  </section>
+
+</div>

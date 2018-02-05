@@ -1,0 +1,265 @@
+<sidebar opened="sidebarOpened">
+  
+  <form class="form-horizontal">
+    <fieldset>
+      
+      <div class="col-xs-12 col-md-12">
+        <!-- Γεωγραφική Δομή -->
+        <result-args
+          ng-show="showAdminUnit"
+          general="args.general"
+          geographical-unit-id="args.geographicalUnitId"
+          hide-geographical-unit="::true"
+          decentral-admin-id="args.decentralAdminId"
+          hide-decentral-admin="::true"
+          region-id="args.regionId"
+          regional-unit-id="args.regionalUnitId"
+          municipality-id="args.municipalityId"
+          municipal-unit-id="args.municipalUnitId"
+          hide-municipal-unit="::true"
+          foreign="args.foreign"
+          foreign-country-iso-code="args.foreignCountryIsoCode"
+          foreign-city="args.foreignCity"
+          election-center-id="args.electionCenterId"
+          election-department-id="args.electionDepartmentId"
+          set-clear="setClear(theDirFn)"
+          hide-foreign-option="::true"
+          hide-foreign-city="::true"
+          get-data-values="adminUnitDataValues(theDirFn)"
+          init-lists="setInitAdminUnitLists(theDirFn)"
+          horizontal-layout="::true">
+        </result-args>
+      </div>
+    
+    </fieldset>
+    
+    <div class="cr-btn-group cr-btn-group-centered">
+      
+      <hr/>
+      
+      <button type="submit" class="btn btn-primary"
+              ng-click="retrieve()"
+              ng-disabled="retrieveLoading"
+              ng-if="::hasPermission('ep.snapshot')"
+              button-spinner="retrieveLoading"
+              button-prepend="fa fa-search">
+        <small>{{::'global.retrieve' | translate}}</small>
+      </button>
+      
+      <button type="button" ng-if="::hasPermission('ep.snapshot')" class="btn btn-info" ng-click="clearArguments()">
+        <i class="fa fa-trash"></i>
+        <small>{{::'global.clear' | translate}}</small>
+      </button>
+    
+    </div>
+  
+  </form>
+</sidebar>
+
+<div id="content">
+  
+  <div class="cr-btn-group-actions">
+    
+    <button type="submit" ng-if="::hasPermission('ep.snapshot')" class="btn btn-primary btn-sm"
+            ng-click="retrieve()"
+            ng-disabled="retrieveLoading"
+            button-spinner="retrieveLoading"
+            button-prepend="fa fa-search">
+      <small>{{::'global.retrieve' | translate}}</small>
+    </button>
+    
+    <button type="button" ng-if="::hasPermission('ep.snapshot')" class="btn btn-info btn-sm" ng-click="openSidebar()">
+      <i class="fa fa-filter"></i>&nbsp;
+      <small>{{::'ep.snapshot.view.showFilters' | translate}}</small>
+    </button>
+    
+    <ui-toggle class="toggle-info toggle-xs pull-right"
+               ng-if="::hasPermission('ep.snapshot')"
+               label="{{::'ep.snapshot.view.autoRefresh' | translate}}"
+               ng-model="autoRefresh"
+               ng-change="toggleAutoRefresh(autoRefresh)">
+    </ui-toggle>
+  
+  </div>
+  
+  <br>
+  
+  <!-- Success/Error Messages -->
+  <success-error alerts="alerts"></success-error>
+  
+  <section>
+    
+    <div class="row">
+      
+      <article class="col-xs-12">
+        <breadcrumb crumbs="filters" on-click="onBreadcrumbClick(item)"></breadcrumb>
+      </article>
+    
+    </div>
+    
+    <div class="row">
+      
+      <article class="col-xs-12">
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            {{::'ep.snapshot.view.snapshots' | translate}}
+            
+          </div>
+          <div class="panel-body cr-panel-args">
+  
+            <table class="table table-striped table-hover table-condensed cr-snapshot-table">
+              <thead>
+                <tr>
+                  <th class="text-align-center font-md" style="width: 20%">{{::'ep.snapshot.view.mainTable.unit' | translate}}</th>
+                  <th class="text-align-center font-md" style="width: 5%">{{::'ep.snapshot.view.mainTable.analysis' | translate}}</th>
+                  <th class="text-align-center font-md" style="width: 13%">{{::'ep.snapshot.view.mainTable.voterCount' | translate}}</th>
+                  <th class="text-align-center font-md" style="width: 12%">{{::'ep.snapshot.view.mainTable.undoneVoterCount' | translate}}</th>
+                  <th class="text-align-center font-md" style="width: 25%">{{::'ep.snapshot.view.mainTable.startedDepartments' | translate}}</th>
+                  <th class="text-align-center font-md" style="width: 25%">{{::'ep.snapshot.view.mainTable.submittedDepartments' | translate}}</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <div class="cr-chart-footer-div" ng-if="calculationDates.calculationDateTime">
+                      {{::'ep.snapshot.view.calculationDateTime' | translate}}:&nbsp;{{calculationDates.calculationDateTime | date:'HH:mm:ss'}}
+                    </div>
+                    <div class="cr-chart-footer-div" ng-if="calculationDates.nextCalculationDateTime">
+                      {{::'ep.snapshot.view.nextCalculationDateTime' | translate}}:&nbsp;{{calculationDates.nextCalculationDateTime | date:'HH:mm:ss'}}
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr class="cr-snapshot-table-tr" ng-repeat="item in mainTableData" ng-class="$index === 0 ? 'cr-snapshot-table-main-row' : 'cr-snapshot-table-descendant-row'">
+                  <td class="cr-snapshot-table-td font-md txt-color-blueDark">
+                    <a class="cr-snapshot-a" href-void="" href="#" ng-click="drillDown(item)">{{item.name}}</a>
+                  </td>
+                  <td class="cr-snapshot-table-td font-md text-align-center">
+                    <i class="cr-pointer fa fa-area-chart txt-color-magenta" ng-click="findAllSnapshots(item.type, item.argId, true)"
+                       tooltip="{{::'ep.snapshot.view.analysis.tooltip' | translate}}" data-tooltip-placement="bottom"></i>&nbsp;
+                  </td>
+                  <td class="text-align-center cr-snapshot-table-td font-xl cr-snapshot-green">{{item.voterCount}}</td>
+                  <td class="text-align-center cr-snapshot-table-td font-xl cr-snapshot-red">{{item.undoneVoterCount}}</td>
+                  <td class="text-align-center cr-snapshot-table-td">
+  
+                    <div class="cr-chart-doughnut-container">
+                      
+                      <canvas id="doughnut1" class="chart chart-doughnut cr-chart-canvas"
+                              chart-data="[item.startedDepartmentCount, item.totalDepartmentCount - item.startedDepartmentCount]" chart-options="chartOptions"
+                              chart-colors="::chartColors">
+                      </canvas>
+  
+                      <div class="cr-chart-doughnut-text font-md txt-color-blue">
+                        {{item.startedDepartmentCount}}/{{item.totalDepartmentCount}} {{::'ep.snapshot.view.mainTable.electionDepartment.shortcut' | translate}}
+                        &nbsp;&nbsp;&nbsp;&nbsp;({{(item.startedDepartmentCount/item.totalDepartmentCount)*100 | number:0}} &#37;)
+                      </div>
+                      
+                    </div>
+                    
+                  </td>
+                  <td class="text-align-center cr-snapshot-table-td">
+  
+                    <div class="cr-chart-doughnut-container">
+                      
+                      <canvas id="doughnut2" class="chart chart-doughnut cr-chart-canvas"
+                              chart-data="[item.submittedDepartmentCount, item.totalDepartmentCount - item.submittedDepartmentCount]" chart-options="chartOptions"
+                              chart-colors="::chartColors">
+                      </canvas>
+  
+                      <div class="cr-chart-doughnut-text font-md txt-color-blueDark">
+                        {{item.submittedDepartmentCount}}/{{item.totalDepartmentCount}} {{::'ep.snapshot.view.mainTable.electionDepartment.shortcut' | translate}}
+                        &nbsp;&nbsp;&nbsp;&nbsp;({{(item.submittedDepartmentCount/item.totalDepartmentCount)*100 | number:0}} &#37;)
+                      </div>
+                    </div>
+                    
+                  </td>
+                  
+                </tr>
+                
+              </tbody>
+              
+              
+            </table>
+            
+          
+          </div>
+        </div>
+      
+      </article>
+  
+      <h3 id="analysisHeaderId" class="col-xs-12 txt-color-blueDark">
+        {{::'ep.snapshot.view.analysis.analysis.title' | translate}}:
+        <div class="cr-div-inline" ng-show="!customLineChartOptions.loadAnalysis">&nbsp;{{customLineChartOptions.name}}</div>
+        <div class="cr-div-inline animate-show-hide" ng-show="customLineChartOptions.loadAnalysis">&nbsp;&nbsp;&nbsp;<i class="fa fa-spinner fa-pulse"></i></div>
+      </h3>
+      
+      <div class="cr-snapshot-analysis animate-show-hide" ng-show="customLineChartOptions.showAnalysis">
+  
+        <article class="col-xs-12 col-md-6 col-lg-4">
+    
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              {{::'ep.snapshot.view.analysis.voterCount' | translate}}
+            </div>
+            <div class="panel-body cr-panel-args">
+              
+              <canvas id="line" class="chart chart-line cr-line-chart-canvas" chart-data="votersChartData"
+                      chart-labels="votersChartLabels" chart-series="votersChartSeries" chart-options="votersChartOptions"
+                      chart-dataset-override="votersChartDatasetOverride" chart-colors="::votersChartColors">
+              </canvas>
+              
+            </div>
+          </div>
+          
+        </article>
+    
+        <article class="col-xs-12 col-md-6 col-lg-4">
+      
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              {{::'ep.snapshot.view.analysis.voterCountRate' | translate}}
+            </div>
+            <div class="panel-body cr-panel-args">
+          
+              <canvas id="line" class="chart chart-line cr-line-chart-canvas" chart-data="votersRateChartData"
+                      chart-labels="votersRateChartLabels" chart-series="votersRateChartSeries" chart-options="votersRateChartOptions"
+                      chart-dataset-override="votersRateChartDatasetOverride" chart-colors="::votersRateChartColors">
+              </canvas>
+        
+            </div>
+          </div>
+    
+        </article>
+    
+        <article class="col-xs-12 col-md-6 col-lg-4">
+      
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              {{::'ep.snapshot.view.analysis.undoneVoterCount' | translate}}
+            </div>
+            <div class="panel-body cr-panel-args">
+          
+              <canvas id="line" class="chart chart-line cr-line-chart-canvas" chart-data="undoneVotersChartData"
+                      chart-labels="undoneVotersChartLabels" chart-series="undoneVotersChartSeries" chart-options="undoneVotersChartOptions"
+                      chart-dataset-override="undoneVotersChartDatasetOverride" chart-colors="::undoneVotersChartColors">
+              </canvas>
+        
+            </div>
+          </div>
+    
+        </article>
+
+      </div>
+    
+    </div>
+  
+  </section>
+
+</div>

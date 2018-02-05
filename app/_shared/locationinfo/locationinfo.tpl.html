@@ -1,0 +1,93 @@
+<div>
+
+  <!-- Χώρα -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'CountryId'}), fromNull: fromNull({elem: name + 'CountryId'})}">
+      {{::'common.country' | translate}}
+    </label>
+    <div class="col-md-8">
+      <select class="form-control"
+        name="{{::name}}CountryId"
+        chosen="{{::$root.chosenAttrs}}"
+        ng-model="countryId"
+        ng-disabled="disabled || (changeable && !changeable({elem: name + 'CountryId'}))"
+        ng-class="{field_required: actrequired({elem: '{{::name}}CountryId'}) && !countryId}"
+        ng-options="item.id as item.name for item in countries"
+        ng-change="countryChanged()">
+        <option value=""></option>
+      </select>
+    </div>
+  </div>
+
+  <article ng-switch="cityText">
+
+    <!-- Πόλη Εξωτερικού (Text)-->
+    <div class="form-group" ng-hide="!$parent.countryId || $parent.countryIsGreece()" ng-switch-when="true">
+      <label class="col-md-4 control-label" ng-class="::{required: $parent.required({elem: name + 'ForeignCity'}), fromNull: $parent.fromNull({elem: name + 'ForeignCity'})}">
+        {{::'common.foreignCity' | translate}}
+      </label>
+      <div class="col-md-8">
+        <input type="text" class="form-control"
+          name="{{::name}}ForeignCity"
+          ng-model="$parent.foreignCity"
+          ng-class="{field_required: $parent.actrequired({elem: '{{::name}}ForeignCity'}) && !$parent.foreignCity}"
+          ng-readonly="::$parent.disabled || ($parent.changeable && !$parent.changeable({elem: name + 'ForeignCity'}))" />
+      </div>
+    </div>
+
+    <!-- Πόλη εξωτερικού (Directive)-->
+    <cr-city ng-switch-default
+      city-name="$parent.foreignCity"
+      name="{{::name}}ForeignCityName"
+      country-id="$parent.countryId"
+      city-api="$parent.cityApi"
+      ng-hide="!$parent.countryId || $parent.countryIsGreece()"
+      ng-disabled="!$parent.countryId || $parent.disabled"
+      actrequired="$parent.actrequired({elem: elem})">
+    </cr-city>
+
+  </article>
+
+  <!-- Περιγραφή Δήμου -->
+  <div class="form-group" ng-show="placeDescr != null" ng-if="::!noPlaceDescr">
+    <label class="col-md-4 control-label">{{::'common.placeDescr' | translate}}</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" name="{{::name}}PlaceDescr" value="{{placeDescr}}" disabled />
+    </div>
+  </div>
+
+  <article ng-switch="!(required && changeable && fromNull)" ng-show="countryIsGreece()">
+
+    <!-- Με επιπλέον ελέγχους -->
+    <!-- Στοιχεία Διοικητικής Δομής (Ελλάδα) -->
+    <admin-unit-info
+      ng-switch-when="false"
+      municipality-id="$parent.municipalityId"
+      municipal-unit-id="$parent.municipalUnitId"
+      municipal-unit-exists="$parent.municipalUnitExists"
+      municipal-community-id="$parent.municipalCommunityId"
+      ng-disabled="$parent.disabled"
+      name="{{$parent.name}}"
+      required="$parent.required({elem: elem})"
+      changeable="$parent.changeable({elem: elem})"
+      from-null="$parent.fromNull({elem: elem})"
+      api="$parent.adminUnitApi">
+    </admin-unit-info>
+
+    <!-- Χωρίς επιπλέον ελέγχους -->
+    <!-- Στοιχεία Διοικητικής Δομής (Ελλάδα) -->
+    <admin-unit-info
+      ng-switch-when="true"
+      municipality-id="$parent.municipalityId"
+      municipal-unit-id="$parent.municipalUnitId"
+      municipal-unit-exists="$parent.municipalUnitExists"
+      municipal-community-id="$parent.municipalCommunityId"
+      ng-disabled="$parent.disabled"
+      actrequired="$parent.actrequired({elem: elem})"
+      name="{{$parent.name}}"
+      api="$parent.adminUnitApi">
+    </admin-unit-info>
+
+  </article>
+
+</div>

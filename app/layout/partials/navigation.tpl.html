@@ -1,0 +1,132 @@
+<aside id="left-panel" class="left-panel-bg-color">
+  
+  <div ng-if="$root.isAuthenticated">
+    
+    <div style="margin: 5%">
+      
+      <a ng-show="::hasPermission('mg')" class="btn btn-white btn-md btn-info menu-btn"
+         href="#/mg/" data-tooltip-placement="bottom"
+         data-tooltip="{{::'menu.mg' | translate}}" data-tooltip-class="tooltip-info">
+        <i class="fa fa-building-o"></i>
+      </a>
+      
+      <a ng-show="::hasPermission('ep')" class="btn btn-white btn-md btn-warning menu-btn"
+         href="#/ep/" data-tooltip-placement="bottom"
+         data-tooltip="{{::'menu.ep' | translate}}" data-tooltip-class="tooltip-warning">
+        <i class="fa fa-envelope-o"></i>
+      </a>
+      
+      <a ng-show="::hasPermission('rs')" class="btn btn-white btn-md btn-success menu-btn"
+         href="#/rs/" data-tooltip-placement="bottom"
+         data-tooltip="{{::'menu.rs' | translate}}" data-tooltip-class="tooltip-success">
+        <i class="fa fa-pie-chart"></i>
+      </a>
+      
+      <a ng-show="::hasPermission('sa')" class="btn btn-white btn-md btn-danger menu-btn"
+         href="#/us/" data-tooltip-placement="bottom"
+         data-tooltip="{{::'menu.us' | translate}}" data-tooltip-class="tooltip-danger">
+        <i class="fa fa-user"></i>
+      </a>
+    
+    </div>
+    
+    <hr/>
+    
+    <nav>
+      
+      <ul id="cr-menu" data-smart-menu>
+        
+        <article ng-show="path.indexOf('/mg/') !== -1">
+          
+          <li id="mgElctionCenterSection" ng-show="::hasPermission('mg.electioncenter')" data-menu-collapse>
+            <a href="#"><span class="menu-item-parent">{{::'menu.mg.electioncenter' | translate}}</span></a>
+            <ul>
+              <li ng-show="::hasPermission('mg.electioncenter')">
+                <a data-cr-view="mgElectionCenterList" data-ui-sref="app.mg.electioncenter.list">{{::'menu.mg.electioncenter.list' | translate}}</a>
+              </li>
+              <li ng-show="::hasPermission('mg.electioncenter')">
+                <a data-cr-view="mgElectionCenterView" data-ui-sref="app.mg.electioncenter.view({id: null})">{{::'menu.mg.electioncenter.view' | translate}}</a>
+              </li>
+            </ul>
+          </li>
+  
+          <li id="mgElctionDepartmentSection" ng-show="::hasPermission('mg.electiondepartment')" data-menu-collapse>
+            <a href="#"><span class="menu-item-parent">{{::'menu.mg.electiondepartment' | translate}}</span></a>
+            <ul>
+              <li ng-show="::hasPermission('mg.electiondepartment')">
+                <a data-cr-view="mgElectionDepartmentList" data-ui-sref="app.mg.electiondepartment.list">{{::'menu.mg.electiondepartment.list' | translate}}</a>
+              </li>
+            </ul>
+          </li>
+        
+        </article>
+        
+        <article ng-show="path.indexOf('/ep/') !== -1">
+          
+          <li id="epVerificationSection" ng-show="::hasPermission('ep.verification')" data-menu-collapse>
+            <a href="#"><span class="menu-item-parent">{{::'menu.ep.verification' | translate}}</span></a>
+            <ul>
+              <li ng-show="::hasPermission('ep.verification')">
+                <a data-cr-view="epVerificationView" data-ui-sref="app.ep.verification.view">{{::'menu.ep.verification.view' | translate}}</a>
+              </li>
+              <li ng-show="::hasPermission('ep.snapshot')">
+                <a data-cr-view="epSnapshotView" data-ui-sref="app.ep.snapshot.view">{{::'menu.ep.snapshot.view' | translate}}</a>
+              </li>
+              <li ng-show="::hasPermission('ep.snapshot')">
+                <a data-cr-view="epStatisticsView" data-ui-sref="app.ep.statistics.view">{{::'menu.ep.statistics.view' | translate}}</a>
+              </li>
+            </ul>
+          </li>
+        
+        </article>
+        
+        <article ng-show="path.indexOf('/rs/') !== -1">
+          
+          <li id="rsResultsSection" ng-show="::hasPermission('rs')" data-menu-collapse>
+            <a href="#"><span class="menu-item-parent">{{::'menu.rs.results' | translate}}</span></a>
+            <ul>
+              <li ng-show="::hasPermission('rs.submission')">
+                <a data-cr-view="rsSubmissionView" data-ui-sref="app.rs.submission.view">{{::'menu.rs.submission.view' | translate}}</a>
+              </li>
+              <li ng-show="::hasPermission('rs.result')">
+                <a data-cr-view="rsDisplayView" data-ui-sref="app.rs.display.view">{{::'menu.rs.display.view' | translate}}</a>
+              </li>
+              <li ng-show="::hasPermission('rs.result')">
+                <a data-cr-view="rsElectionDepartmentList" data-ui-sref="app.rs.electiondepartment.list">{{::'menu.rs.electiondepartment.list' | translate}}</a>
+              </li>
+            </ul>
+          </li>
+        
+        </article>
+        
+		<article ng-show="path.indexOf('/us/') !== -1">
+          
+          <li id="usVolunteerSection" ng-show="::hasPermission('ext.volunteer')" data-menu-collapse>
+            <a href="#"><span class="menu-item-parent">{{::'menu.us.volunteer' | translate}}</span></a>
+            <ul>
+              <li ng-show="::hasPermission('ext.volunteer')">
+                <a data-cr-view="usVolunteerList" data-ui-sref="app.us.volunteer.list">{{::'menu.us.volunteer.list' | translate}}</a>
+              </li>
+            </ul>
+          </li>
+          
+          <li id="usUserSection" ng-show="::hasPermission('sa.user')" data-menu-collapse>
+            <a href="#"><span class="menu-item-parent">{{::'menu.us.user' | translate}}</span></a>
+            <ul>
+              <li ng-show="::hasPermission('sa.user')">
+                <a data-cr-view="usUserList" data-ui-sref="app.us.user.list">{{::'menu.us.user.list' | translate}}</a>
+              </li>
+              <li ng-show="::hasPermission('sa.user')">
+                <a data-cr-view="usUserView" data-ui-sref="app.us.user.view({id: null})">{{::'menu.us.user.view' | translate}}</a>
+              </li>
+            </ul>
+          </li>
+        
+        </article>
+      
+      </ul>
+    </nav>
+  
+  </div>
+
+</aside>

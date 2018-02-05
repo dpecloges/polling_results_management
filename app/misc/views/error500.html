@@ -1,0 +1,40 @@
+<div id="content">
+				<!-- row -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="text-center error-box">
+									<h1 class="error-text error-text-500 tada animated"><i class="fa fa-times-circle text-danger error-icon-shadow"></i> {{::'global.page500.title' | translate}}</h1>
+									<h2 class="font-xl"><strong>{{::'global.page500.subtitle' | translate}}</strong></h2>
+									<br>
+									<p class="lead semi-bold">
+										<strong>{{::'global.page500.description1' | translate}}</strong><br>
+										<strong><small>{{::'global.page500.description2' | translate}}</small></strong><br>
+									</p>
+									<ul class="text-left font-md">
+										<li><small>{{::'global.page500.action1' | translate}}</small></li>
+										<li><small>{{::'global.page500.action2' | translate}}</small></li>
+									</ul>
+									<br>
+
+									<div ng-hide="exception===null" class="well text-left highlight">
+										<h5>
+											<code class="html background-transparent">
+												<span><strong>{{::'global.page500.exception.status' | translate}}</strong></span> {{error.status}} {{error.statusText}}<br>
+												<span><strong>{{::'global.page500.exception.errorId' | translate}}</strong></span> {{error.data.errorId}}<br>
+												<span><strong>{{::'global.page500.exception.message' | translate}}</strong></span> {{error.data.errorMessage}}<br>
+												<span><strong>{{::'global.page500.exception.url' | translate}}</strong></span> {{error.data.url}}<br>
+												<span><strong>{{::'global.page500.exception.stack' | translate}}</strong></span><pre>{{fullStackText}}</pre>
+											</code>
+										</h5>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end row -->
+			</div>

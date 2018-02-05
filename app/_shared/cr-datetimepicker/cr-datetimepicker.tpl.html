@@ -1,0 +1,49 @@
+<div>
+    <!-- Ημερομηνία -->
+    <div class="form-group">
+        <label class="col-md-4 control-label">Ημερομηνία {{labelInfo}}</label>
+        <div class="col-md-4">
+            <article class="input-group" data-placement="right" data-align="top" data-autoclose="true">
+                <input type="text" class="form-control" datepicker-popup="{{options.format}}"
+                       ng-class="{field_required: actrequired && !theDate}"  name="{{::name}}Date"
+                       min-date="mindate"
+                       max-date="maxdate"
+                       ng-model="theDate"
+                       ui-mask="99/99/9999"
+                       model-view-value="true"
+                       ng-init="initialSplit()"
+                       ng-change="dateChanged()"
+                       ng-disabled="disabled"
+                       is-open="opened"
+                       ng-model-options="{allowInvalid: true}"
+                       datepicker-options="options" />
+
+                <span class="input-group-btn width-30">
+                    <button type="button" class="btn btn-default inputGroupBtn" ng-click="open($event)" ng-disabled="disabled"><i class="fa fa-calendar"></i></button>
+                </span>
+            </article>
+        </div>
+    </div>
+
+    <!-- Ώρα -->
+    <div class="form-group">
+        <label class="col-md-4 control-label">Ώρα {{labelInfo}}</label>
+        <div class="col-md-4">
+            <article class="input-group clockpicker" data-placement="right" data-align="top"  data-autoclose="true">
+                <input type="text" class="form-control"
+                       ng-model="theTimeDescr"
+                       ng-class="{field_required: actrequired && !theTimeDescr}"
+                       name="{{::name}}Time"
+                       ng-change="timeChanged()"
+                       ui-mask="99:99"
+                       model-view-value="true"
+                       ng-disabled="disabled">
+                <span class="input-group-addon inputGroupBtn" ng-hide="disabled">
+                    <!--<button type="button" class="btn btn-default inputGroupBtn" ng-disabled="disabled"><i class="fa fa-clock-o"></i></button>-->
+                    <i class="fa fa-clock-o"></i>
+                </span>
+            </article>
+        </div>
+    </div>
+
+</div>

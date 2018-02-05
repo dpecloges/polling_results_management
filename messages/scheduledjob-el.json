@@ -1,0 +1,33 @@
+{
+  "sa.scheduledjob.list.args.description": "Περιγραφή",
+  "sa.scheduledjob.list.args.status": "Κατάσταση",
+  "sa.scheduledjob.list.args.scheduleDate.from": "Ημ/νία Προγραμ.",
+  "sa.scheduledjob.list.args.scheduleDate.to": "έως",
+  "sa.scheduledjob.list.args.fireDate.from": "Ημ/νία Εκτέλεσης",
+  "sa.scheduledjob.list.args.fireDate.to": "έως",
+
+  "sa.scheduledjob.list.jobName": "Αναγνωριστικό Εργασίας",
+  "sa.scheduledjob.list.description": "Περιγραφή",
+  "sa.scheduledjob.list.status": "Κατάσταση",
+  "sa.scheduledjob.list.scheduleDate": "Ημ. Προγραμματισμού",
+  "sa.scheduledjob.list.fireDate": "Ημ. Εκτέλεσης",
+  "sa.scheduledjob.list.startDate": "Ημ. Έναρξης",
+  "sa.scheduledjob.list.endDate": "Ημ. Λήξης",
+  "sa.scheduledjob.list.errorId": "Αναγνωριστικό Σφάλματος",
+  "sa.scheduledjob.list.errorMessage": "Σφάλμα",
+  "sa.scheduledjob.list.fromJobName": "Αναγνωριστικό Σχετικής Εργασίας",
+
+  "sa.scheduledjob.view.calculate_results.title": "Υπολογισμός Αποτελεσμάτων",
+  "sa.scheduledjob.view.calculate_snapshots.title": "Υπολογισμός Προόδου Εκλογικής Διαδικασίας",
+
+  "sa.scheduledjob.view.action.schedule": "Έναρξη Εκτέλεσης Εργασίας",
+  "sa.scheduledjob.view.action.schedule.success": "Ο προγραμματισμός της εργασίας ολοκληρώθηκε με επιτυχία.",
+  "sa.scheduledjob.view.action.unschedule": "Διακοπή Εκτέλεσης Εργασίας",
+  "sa.scheduledjob.view.action.unschedule.success": "Η αφαίρεση της προγραμματισμένης εργασίας ολοκληρώθηκε με επιτυχία.",
+  "sa.scheduledjob.view.action.unschedule.confirmation": "Θα πραγματοποιηθεί διακοπή στην εκτέλεση της προγραμματισμένης εργασίας. Είστε βέβαιοι ότι θέλετε να προχωρήσετε;",
+  "sa.scheduledjob.view.generalData": "Στοιχεία Εκτέλεσης Εργασίας",
+  "sa.scheduledjob.view.cronExpression": "Χρονική Έκφραση",
+  "sa.scheduledjob.view.previousFireDate": "Προηγούμενη Εκτέλεση",
+  "sa.scheduledjob.view.nextFireDate": "Επόμενη Εκτέλεση",
+  "sa.scheduledjob.view.sampleData": "Παράρτημα"
+}

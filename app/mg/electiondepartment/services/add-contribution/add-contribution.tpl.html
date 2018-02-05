@@ -1,0 +1,64 @@
+<div class="modal-header cr-modal-header">
+  <h4 class="modal-title">{{::'mg.electiondepartment.view.contributions.add.selectVolunteer.title' | translate}}</h4>
+</div>
+
+<div class="modal-body">
+  
+  <form class="form-horizontal">
+    
+    <fieldset>
+      
+      <div class="col-sm-6">
+        
+        <!-- Επώνυμο -->
+        <div class="form-group hr-4">
+          <label class="control-label col-sm-12 col-md-4">{{::'ext.volunteer.list.args.lastName' | translate }}</label>
+          <div class="col-sm-12 col-md-8">
+            <input type="text" class="form-control" ng-model="args.lastName"/>
+          </div>
+        </div>
+      
+      </div>
+      
+      <div class="col-sm-6">
+        
+        <!-- Όνομα -->
+        <div class="form-group hr-4">
+          <label class="control-label col-sm-12 col-md-4">{{::'ext.volunteer.list.args.firstName' | translate }}</label>
+          <div class="col-sm-12 col-md-8">
+            <input type="text" class="form-control" ng-model="args.firstName"/>
+          </div>
+        </div>
+      
+      </div>
+    
+    </fieldset>
+    
+    <div class="cr-btn-group-actions cr-btn-group-centered padding-bottom-5">
+      
+      <hr/>
+      <button type="submit" class="btn btn-primary" ng-click="retrieveGridData()" ng-disabled="indexLoading" button-spinner="indexLoading"
+              button-prepend="fa fa-search" ng-if="::hasPermission('mg.electiondepartment')">
+        <small>{{::'global.retrieve' | translate}}</small>
+      </button>
+    
+    </div>
+  
+  </form>
+  
+  <div class="row">
+    <article class="col-sm-12">
+      <view-jq-grid grid-id="{{::gridId}}" grid-data="gridData" parent-width="true" double-click="doubleClick(id)" load-complete="stopIndexLoading()"
+                    load-error="errorIndexLoading()"></view-jq-grid>
+    </article>
+  </div>
+</div>
+
+<div class="modal-footer cr-btn-group-actions">
+  <button class="btn btn-primary" type="button" ng-click="confirm()" ng-if="::hasPermission('mg.electiondepartment')">
+    <small>{{::'global.confirm' | translate}}</small>
+  </button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">
+    <small>{{::'global.cancel' | translate}}</small>
+  </button>
+</div>

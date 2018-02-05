@@ -1,0 +1,208 @@
+<div id="content">
+  
+  <div class="cr-btn-group-actions">
+    
+    <button type="button" class="btn btn-white btn-success" ng-disabled="saveLoading || deleteLoading" button-spinner="saveLoading"
+            button-prepend="fa fa-floppy-o" ng-click="saveElectionDepartment()"
+            ng-if="::hasPermission('mg.electiondepartment')">
+      <small>{{::'global.save' | translate}}</small>
+    </button>
+    
+    <button type="button" class="btn btn-white btn-danger" ng-disabled="deleteLoading || saveLoading" button-spinner="deleteLoading"
+            button-prepend="fa fa-trash" ng-click="deleteElectionDepartment()" ng-if="::hasPermission('mg.electiondepartment')" ng-show="$stateParams.id">
+      <small>{{::'global.delete' | translate}}</small>
+    </button>
+    
+    <hr/>
+  
+  </div>
+  
+  <!-- Success/Error Messages -->
+  <success-error alerts="alerts"></success-error>
+  
+  <section>
+    
+    <form id="electionDepartmentForm" name="electionDepartmentForm" class="form-horizontal" exit-confirmation>
+  
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          
+          <div class="panel panel-default">
+            <div class="panel-heading">{{::'mg.electiondepartment.view.generalData'| translate}}</div>
+            <div class="panel-body">
+              
+              <article class="col-xs-12 col-md-12">
+                
+                <!-- Εκλογικό Τμήμα -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.parentElectionCenter' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" name="code" value="{{parentElectionCenter.code}} ({{parentElectionCenter.name}})" readonly/>
+                  </div>
+                </div>
+                
+                <!-- Κωδικός -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.code' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionDepartment.code" name="code" readonly/>
+                  </div>
+                </div>
+                
+                <!-- Ονομασία -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.name' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionDepartment.name" name="name"/>
+                  </div>
+                </div>
+                
+                <!-- Παρατηρήσεις -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.comments' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <cr-textarea textarea-model="electionDepartment.comments" rows="3" size="500"></cr-textarea>
+                  </div>
+                </div>
+                
+                <!-- Δυσπρόσιτο -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.accessDifficulty' | translate}}</label>
+                  <div class="col-xs-1">
+                    <cr-checkbox name="accessDifficulty" model="electionDepartment.accessDifficulty">
+                  </div>
+                </div>
+                
+                <!-- Υποβολή αποτελεσμάτων χωρίς έλεγχο διαπιστεύσεων -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.allowInconsistentSubmission' | translate}}</label>
+                  <div class="col-xs-1">
+                    <cr-checkbox name="allowInconsistentSubmission" model="electionDepartment.allowInconsistentSubmission">
+                  </div>
+                </div>
+                
+              </article>
+            
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="panel panel-default">
+        <div class="panel-heading">{{::'mg.electiondepartment.view.contributionData'| translate}}</div>
+        <div class="panel-body">
+          
+          <div class="col-sm-12" style="padding-left: 1rem;">
+            
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.contributions.add.type' | translate}}</label>
+                <div class="col-xs-9 col-md-8">
+                  <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="selectedContributionType" ng-change="selectedContributionCandidateId = null;">
+                    <option value=""></option>
+                    <option value="CANDIDATE_REPRESENTATIVE">{{::'mg.electiondepartment.view.contribution.type.candidateRepresentative' | translate}}</option>
+                    <option value="COMMITTEE_LEADER">{{::'mg.electiondepartment.view.contribution.type.committeeLeader' | translate}}</option>
+                    <option value="COMMITTEE_LEADER_VICE">{{::'mg.electiondepartment.view.contribution.type.committeeLeaderVice' | translate}}</option>
+                    <option value="COMMITTEE_MEMBER">{{::'mg.electiondepartment.view.contribution.type.committeeMember' | translate}}</option>
+                    <option value="ID_VERIFIER">{{::'mg.electiondepartment.view.contribution.type.idVerifier' | translate}}</option>
+                    <option value="ID_VERIFIER_VICE">{{::'mg.electiondepartment.view.contribution.type.idVerifierVice' | translate}}</option>
+                    <option value="TREASURER">{{::'mg.electiondepartment.view.contribution.type.treasurer' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-6 col-lg-3" ng-show="selectedContributionType === 'CANDIDATE_REPRESENTATIVE'">
+              <div class="form-group">
+                <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.contributions.add.candidateId' | translate}}</label>
+                <div class="col-xs-9 col-md-8">
+                  <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="selectedContributionCandidateId" ng-options="item.id as (item.lastName + ' ' + item.firstName) for item in candidates">
+                    <option value=""></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <div class="cr-btn-group-actions">
+              <button type="button" class="btn btn-white btn-primary" ng-if="::hasPermission('mg.electiondepartment')" ng-click="openAddContributionModal()">
+                <i class="fa fa fa-plus"></i>&nbsp;
+                <small>{{::'global.add' | translate}}</small>
+              </button>
+            </div>
+            
+            <hr/>
+          </div>
+          
+          <article class="col-xs-12">
+            <div style="overflow-x: auto;">
+              <table class="table table-bordered table-striped-stats table-condensed">
+                <tr class="cr-table-header">
+                  <th class="mid" width="15%">{{::'mg.electiondepartment.view.contributions.type' | translate}}</th>
+                  <th class="mid" width="15%">{{::'mg.electiondepartment.view.contributions.volunteer.eklSpecialNo' | translate}}</th>
+                  <th class="mid" width="20%">{{::'mg.electiondepartment.view.contributions.volunteer.lastName' | translate}}</th>
+                  <th class="mid" width="20%">{{::'mg.electiondepartment.view.contributions.volunteer.firstName' | translate}}</th>
+                  <th class="mid" width="10%">{{::'mg.electiondepartment.view.contributions.volunteer.email' | translate}}</th>
+                  <th class="mid" width="10%">{{::'mg.electiondepartment.view.contributions.status' | translate}}</th>
+                  <th class="mid" width="5%"></th>
+                  <th class="mid" width="5%"></th>
+                </tr>
+                <tr ng-repeat="contribution in electionDepartment.contributions">
+                  <td class="mid">{{getContributionTypeText(contribution.type)}}<br/>{{getCandidateFullName(contribution.candidateId)}}</td>
+                  <td class="mid">{{contribution.volunteer.eklSpecialNo}}</td>
+                  <td class="mid-v">{{contribution.volunteer.lastName}}</td>
+                  <td class="mid-v">{{contribution.volunteer.firstName}}</td>
+                  <td class="mid-v">{{contribution.volunteer.email}}</td>
+                  <td class="mid">
+                    <span ng-if="contribution.status == 'WITHOUT_ACCESS'">
+                      <i class="fa fa-user-times larger-font margin-left-right-10 txt-color-red" aria-hidden="true"
+                         tooltip="{{::'mg.electiondepartment.view.contribution.status.withoutAccess' | translate}}" data-tooltip-placement="bottom"></i>
+                    </span>
+                    <span ng-if="contribution.status == 'PENDING'">
+                      <i class="fa fa-circle-thin larger-font margin-left-right-10 txt-color-blueDark" aria-hidden="true"
+                         tooltip="{{::'mg.electiondepartment.view.contribution.status.pending' | translate}}" data-tooltip-placement="bottom"></i>
+                      
+                    </span>
+                    <span ng-if="contribution.status == 'EMAIL_SENT'">
+                      <i class="fa fa-envelope-open-o larger-font margin-left-right-10 txt-color-orange" aria-hidden="true"
+                         tooltip="{{::'mg.electiondepartment.view.contribution.status.emailSentDate' | translate}} {{contribution.emailSentDate | date:'dd/MM/yyyy HH:mm:ss'}}" data-tooltip-placement="bottom"></i>
+                    </span>
+                    <span ng-if="contribution.status == 'REGISTRATION_COMPLETED'">
+                      <i class="fa fa-thumbs-o-up larger-font margin-left-right-10 txt-color-green" aria-hidden="true"
+                         tooltip="{{::'mg.electiondepartment.view.contribution.status.registrationDate' | translate}} {{contribution.registrationDate | date:'dd/MM/yyyy HH:mm:ss'}}" data-tooltip-placement="bottom"></i>
+                    </span>
+                  </td>
+                  
+                  <!-- Ενέργεια αποστολής email ενεργοποίησης -->
+                  <td class="mid" ng-show="true">
+                    <button type="button" class="btn-cr-rounded" tooltip="{{::'mg.electiondepartment.view.contribution.activate.pending' | translate}}" data-tooltip-placement="bottom"
+                            ng-if="::hasPermission('sa.email') && electionDepartment.id != null && contribution.id != null && contribution.status == 'PENDING' && contribution.type != 'WITHOUT_ACCESS'"
+                            ng-click="notifyPendingContribution(contribution)" >
+                      <i class="fa fa-send-o blueColor"></i>
+                    </button>
+                    <button type="button" class="btn-cr-rounded" tooltip="{{::'mg.electiondepartment.view.contribution.activate.emailSent' | translate}}" data-tooltip-placement="bottom"
+                            ng-if="::hasPermission('sa.email') && electionDepartment.id != null && contribution.id != null && contribution.status == 'EMAIL_SENT' && contribution.type != 'WITHOUT_ACCESS'"
+                            ng-click="renotifyPendingContribution(contribution)">
+                      <i class="fa fa-send-o greyColor"></i>
+                    </button>
+                  </td>
+                  
+                  <!-- Ενέργεια διαγραφής -->
+                  <td class="mid" ng-show="true">
+                    <button type="button" class="btn-cr-rounded" tooltip="{{::'global.minus' | translate}}" data-tooltip-placement="bottom"
+                            ng-click="removeContribution(contribution)" ng-if="::hasPermission('mg.electiondepartment')">
+                      <i class="fa fa-minus redColor"></i>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </article>
+        
+        </div>
+      </div>
+    </form>
+  
+  </section>
+
+</div>

@@ -1,0 +1,133 @@
+<!-- MAIN CONTENT -->
+<div id="content">
+
+    <!-- section -->
+    <section>
+
+        <!-- row -->
+        <div class="row">
+
+            <article class="col-xs-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{::'global.args' | translate}}
+                    </div>
+                    <div class="panel-body cr-panel-args">
+
+                        <form class="form-horizontal">
+
+                            <fieldset>
+
+                                <!-- Πρώτη στήλη ορισμάτων ευρετηρίου -->
+                                <div class="col-xs-12 col-md-6">
+
+                                    <!--Περιγραφή-->
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3 col-md-4">{{::'sa.scheduledjob.list.args.description' | translate}}</label>
+                                        <div class="col-xs-9 col-md-8">
+                                            <input type="text" class="form-control" ng-model="args.description" id="description"/>
+                                        </div>
+                                    </div>
+
+                                    <!--Κατάσταση-->
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3 col-md-4">{{::'sa.scheduledjob.list.args.status' | translate}}</label>
+                                        <div class="col-xs-9 col-md-8">
+                                            <select name="status"
+                                                    chosen="{{::chosenAttrs}}"
+                                                    disable-search="true"
+                                                    id="status"
+                                                    class="form-control"
+                                                    ng-options="item.value as item.label for item in lists.scheduledJobStatus"
+                                                    ng-model="args.status">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Δεύτερη στήλη ορισμάτων ευρετηρίου -->
+                                <div class="col-xs-12 col-md-6">
+
+                                    <!--Ημερομηνία Προγραμματισμού-->
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3 col-md-4">{{::'sa.scheduledjob.list.args.scheduleDate.from' | translate}}</label>
+                                        <div class="col-xs-9 col-md-8">
+                                            <div class="col-xs-6 col-list-6 no-padding-left no-padding-right">
+                                                <cr-datepicker model="args.scheduleDateFrom" options="dateOptions"></cr-datepicker>
+                                            </div>
+                                            <div class="col-list-gap no-padding-left no-padding-right">
+                                                <label class="control-label">{{::'global.datepicker.from.to' | translate}}</label>
+                                            </div>
+                                            <div class="col-xs-6 col-list-6 no-padding-left no-padding-right pull-right">
+                                                <cr-datepicker model="args.scheduleDateTo" options="dateOptions"></cr-datepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Ημερομηνία Προγραμματισμένης Εκτέλεσης-->
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3 col-md-4">{{::'sa.scheduledjob.list.args.fireDate.from' | translate}}</label>
+                                        <div class="col-xs-9 col-md-8">
+                                            <div class="col-xs-6 col-list-6 no-padding-left no-padding-right">
+                                                <cr-datepicker model="args.fireDateFrom" options="dateOptions"></cr-datepicker>
+                                            </div>
+                                            <div class="col-list-gap no-padding-left no-padding-right">
+                                                <label class="control-label">{{::'global.datepicker.from.to' | translate}}</label>
+                                            </div>
+                                            <div class="col-xs-6 col-list-6 no-padding-left no-padding-right pull-right">
+                                                <cr-datepicker model="args.fireDateTo" options="dateOptions"></cr-datepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+
+                            <div class="cr-btn-group cr-btn-group-centered">
+
+                                <hr/>
+
+                                <button ng-show="::hasPermission('sys.admin')" class="btn btn-primary" ng-click="retrieveGridData()"
+                                        ng-disabled="indexLoading" button-spinner="indexLoading" button-prepend="fa fa-search">
+                                    <small>{{::'global.retrieve'| translate}}</small>
+                                </button>
+
+                                <button ng-show="::hasPermission('sys.admin')" class="btn btn-info" ng-click="clearArguments()">
+                                    <i class="fa fa-trash"></i>
+                                    <small>{{::'global.clear'| translate}}</small>
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+
+        <div class="row">
+            <div class="pull-left col-sm-12 col-md-12">
+                <!-- Success/Error Messages -->
+                <success-error alerts="alerts"></success-error>
+            </div>
+            <article class="col-sm-12">
+                <view-jq-grid
+                        grid-id="scheduledJobListGrid"
+                        grid-data="gridData"
+                        double-click="showError(id)"
+                        load-complete="stopIndexLoading()"
+                        load-error="stopIndexLoading()">
+                </view-jq-grid>
+            </article>
+        </div>
+
+    </section>
+
+</div>

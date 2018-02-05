@@ -1,0 +1,40 @@
+angular.module('app.utils')
+  .directive('resultArgs', ['AdminUnitService', function(AdminUnitService) {
+    return {
+      restrict: 'E',
+      templateUrl: 'app/_shared/result-args/result-args.tpl.html',
+      replace: false,
+      controller: 'ResultArgsController',
+      scope: {
+        general: '=',
+        geographicalUnitId: '=',
+        decentralAdminId: '=',
+        regionId: '=',
+        regionalUnitId: '=',
+        municipalityId: '=',
+        municipalUnitId: '=',
+        municipalCommunityId: '=',
+        foreign: '=',
+        foreignCountryIsoCode: '=',
+        foreignCity: '=',
+        electionCenterId: '=',
+        electionDepartmentId: '=',
+        hideGeographicalUnit: '=',
+        hideDecentralAdmin: '=',
+        hideRegion: '=',
+        hideRegionalUnit: '=',
+        hideMunicipality: '=',
+        hideMunicipalUnit: '=',
+        hideForeignOption: '=',
+        hideForeignCity: '=',
+        disabled: '=ngDisabled',
+        name: '@',
+        required: '&?',
+        setClear: '&',
+        onChange: '&',
+        getDataValues: '&',
+        horizontalLayout: '=',
+        initLists: '&?',
+      }
+    };
+  }]);

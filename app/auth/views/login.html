@@ -1,0 +1,56 @@
+<div id="content">
+  
+  <section>
+    
+    <form id="loginForm" name="loginForm" class="form-horizontal">
+      
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+      
+        <success-error alerts="alerts"></success-error>
+      
+        <div class="col-xs-12 cr-fixed-panel">
+          <div class="panel panel-default">
+            <div class="panel-heading">{{::'global.login.general' | translate}}</div>
+            <div class="panel-body cr-panel-args padding-left-right-10 padding-top-5">
+    
+             <article>
+                
+                <!-- Username -->
+                <div class="form-group">
+                  <label class="col-xs-4 col-md-4 control-label">{{::'global.login.username' | translate}}</label>
+                  <div class="col-xs-8 col-md-8">
+                    <input type="text" class="form-control" ng-model="data.username" name="code"/>
+                  </div>
+                </div>
+                
+                <!-- Password -->
+                <div class="form-group">
+                  <label class="col-xs-4 col-md-4 control-label">{{::'global.login.password' | translate}}</label>
+                  <div class="col-xs-8 col-md-8">
+                    <input type="password" class="form-control" ng-model="data.password" name="name"/>
+                  </div>
+                </div>
+              
+              </article>
+              
+              <div class="cr-btn-group cr-btn-group-centered">
+                
+                <hr/>
+                
+                <button class="btn btn-white btn-success" button-prepend="fa bigger-130 fa-floppy-o"
+                        ng-click="login()">
+                  <small>{{::'global.login.action' | translate}}</small>
+                </button>
+    
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    </form>
+  
+  </section>
+
+</div>

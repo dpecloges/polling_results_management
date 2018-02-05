@@ -1,0 +1,96 @@
+<div id="content">
+  
+  <section>
+    
+    <form id="registerForm" name="registerForm" class="form-horizontal">
+      
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+  
+        <success-error alerts="alerts"></success-error>
+  
+        <div class="col-xs-12 cr-fixed-panel">
+          <div class="panel panel-default" ng-if="!registerUser.errorCode">
+            <div class="panel-heading">{{::'global.register.general' | translate}}</div>
+            <div class="panel-body cr-panel-args padding-left-right-10 padding-top-5">
+              
+              <div>
+                
+                <article>
+                  
+                  <div class="form-group">
+                    <label class="col-xs-4 col-md-4 control-label">{{::'global.register.electionCenterName' | translate}}</label>
+                    <label class="col-xs-8 col-md-8 control-label text-left"><strong>{{registerUser.electionCenterName}}</strong></label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="col-xs-4 col-md-4 control-label">{{::'global.register.electionDepartmentName' | translate}}</label>
+                    <label class="col-xs-8 col-md-8 control-label text-left"><strong>{{registerUser.electionDepartmentName}}</strong></label>
+                  </div>
+      
+                  <div class="form-group">
+                    <label class="col-xs-4 col-md-4 control-label">{{::'global.register.contributionType' | translate}}</label>
+                    <label class="col-xs-8 col-md-8 control-label text-left"><strong>{{registerUser.contributionType}}</strong></label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="col-xs-4 col-md-4 control-label">{{::'global.register.lastName' | translate}}</label>
+                    <label class="col-xs-8 col-md-8 control-label text-left"><strong>{{registerUser.lastName}}</strong></label>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="col-xs-4 col-md-4 control-label">{{::'global.register.firstName' | translate}}</label>
+                    <label class="col-xs-8 col-md-8 control-label text-left"><strong>{{registerUser.firstName}}</strong></label>
+                  </div>
+                  
+                  <!-- Username -->
+                  <div class="form-group">
+                    <label class="col-xs-4 col-md-4 control-label">{{::'global.register.username' | translate}}</label>
+                    <label class="col-xs-8 col-md-8 control-label text-left"><strong>{{registerUser.username}}</strong></label>
+                  </div>
+                  
+                  <!-- Password -->
+                  <div ng-hide="registerUser.success" class="form-group">
+                    <label class="col-xs-4 col-md-4 control-label">{{::'global.register.password' | translate}}</label>
+                    <div class="col-xs-8 col-md-8">
+                      <input type="password" class="form-control" ng-model="data.password" name="password"/>
+                    </div>
+                  </div>
+                  
+                  <!-- Password -->
+                  <div ng-hide="registerUser.success" class="form-group">
+                    <label class="col-xs-4 col-md-4 control-label">{{::'global.register.passwordRepeat' | translate}}</label>
+                    <div class="col-xs-8 col-md-8">
+                      <input type="password" class="form-control" ng-model="data.passwordRepeat" name="passwordRepeat"/>
+                    </div>
+                  </div>
+                
+                </article>
+              
+                <div class="cr-btn-group cr-btn-group-centered">
+                  
+                  <hr/>
+                  
+                  <button ng-hide="registerUser.success" class="btn btn-white btn-success" button-prepend="fa bigger-130 fa-floppy-o"
+                          ng-click="register()">
+                    <small>{{::'global.register.action' | translate}}</small>
+                  </button>
+    
+                  <button ng-show="registerUser.success" class="btn btn-white btn-success" button-prepend="fa bigger-130 fa-floppy-o"
+                          ng-click="login()">
+                    <small>{{::'global.register.login' | translate}}</small>
+                  </button>
+                
+                </div>
+              
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    </form>
+  
+  </section>
+
+</div>

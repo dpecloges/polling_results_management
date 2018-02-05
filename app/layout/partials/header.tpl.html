@@ -1,0 +1,73 @@
+<header id="header" class="header-layout-c cr-header-bg-color">
+  <div class="cr-logo" id="logo-group">
+    
+    <h5 class="margin-logo">
+      <i class="fa fa-id-badge" aria-hidden="true"></i>
+      &nbsp;{{::'global.app.name' | translate}}
+    </h5>
+  
+  </div>
+  
+  <div class="cr-round">
+    <h5 class="margin-logo margin-logo-round">
+      <span ng-if="getElectionProcedureRound() === 'FIRST'">{{::'global.app.electionProcedureRound.first' | translate}}</span>
+      <span ng-if="getElectionProcedureRound() === 'SECOND'">{{::'global.app.electionProcedureRound.second' | translate}}</span>
+    </h5>
+  </div>
+  
+  <div ng-if="$root.isAuthenticated" class="pull-right header-button-panel padding-right-5">
+    
+    <div id="connectedUserOrgs" class="btn-header transparent pull-right header-div user-orgs-panel">
+      <div>
+        <div ng-if="userElectionCenterName()">
+          <!--<i ng-if="userSpecialRegisterOffice()" class="fa fa-flag-o txt-color-header-panel-icon" aria-hidden="true"-->
+             <!--data-tooltip-placement="bottom" data-tooltip="{{::'header.isSpecialRegisterOffice' | translate}}"></i>-->
+          <span class="txt-font-header-panel txt-color-header-panel">{{::'header.connectedUser.electionCenter' | translate}} {{userElectionCenterDisplayName()}}</span>
+        </div>
+        
+        <div ng-if="userElectionDepartmentName()">
+          <!--<br ng-if="userRegisterOfficeName() && userMunicipalRegistryName()"/>-->
+          <span class="txt-font-header-panel txt-color-header-panel">{{::'header.connectedUser.electionDepartment' | translate}} {{userElectionDepartmentName()}}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div id="connectedUser" class="btn-header transparent pull-right header-div connected-user-panel">
+      <!--<i ng-if="userMinisterial()" class="fa fa-building-o txt-color-header-panel-icon" aria-hidden="true"-->
+         <!--data-tooltip-placement="bottom" data-tooltip="{{::'header.isMinisterial' | translate}}"></i>&nbsp;&nbsp;-->
+      <i class="fa fa-child txt-color-header-panel-icon" aria-hidden="true"></i>&nbsp;&nbsp;
+      <span class="txt-font-header-panel txt-color-header-panel">{{::'header.connectedUser' | translate}} {{userFullName()}}</span>
+    </div>
+    
+    <div id="home" class="btn-header transparent pull-right">
+        <span>
+            <a href-void data-tooltip-placement="bottom" data-tooltip="{{::'header.home' | translate}}" ng-click="home()">
+                <i class="fa fa-home"></i>
+            </a>
+        </span>
+    </div>
+    
+    <div id="logout" class="btn-header transparent pull-right">
+        <span>
+            <a href-void data-tooltip-placement="bottom" data-tooltip="{{::'header.logout' | translate}}" ng-click="logout()">
+                <i class="fa fa-sign-out"></i>
+            </a>
+        </span>
+    </div>
+    
+    <div id="hide-menu" class="btn-header pull-right">
+        <span> <a toggle-menu data-tooltip-placement="bottom" data-tooltip="{{::'header.collapseMenu' | translate}}"
+                  data-tooltip-class="hide-menu-tooltip">
+            <i class="fa fa-reorder"></i></a>
+        </span>
+    </div>
+  
+  </div>
+  
+  <div class="marquee-wrap">
+    <div class="marquee txt-color-red">
+    
+    </div>
+  </div>
+
+</header>

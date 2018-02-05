@@ -1,0 +1,396 @@
+<div id="content">
+  
+  <div class="cr-btn-group-actions">
+    
+    <button type="button" class="btn btn-white btn-success" ng-disabled="saveLoading || deleteLoading" button-spinner="saveLoading"
+            button-prepend="fa fa-floppy-o" ng-click="saveElectionCenter({addNew: false})"
+            ng-if="::hasPermission('mg.electioncenter')">
+      <small>{{::'global.save' | translate}}</small>
+    </button>
+    
+    <button type="button" class="btn btn-white btn-success" ng-disabled="deleteLoading || saveLoading" button-spinner="saveLoading"
+            button-prepend="fa fa-plus" ng-click="saveElectionCenter({addNew: true})"
+            ng-if="::hasPermission('mg.electioncenter')">
+      <small>{{::'global.saveandaddnew' | translate}}</small>
+    </button>
+    
+    <button type="button" class="btn btn-white btn-danger" ng-disabled="deleteLoading || saveLoading" button-spinner="deleteLoading"
+            button-prepend="fa fa-trash" ng-click="deleteElectionCenter()" ng-if="::hasPermission('mg.electioncenter')" ng-show="$stateParams.id">
+      <small>{{::'global.delete' | translate}}</small>
+    </button>
+    
+    <button type="button" class="btn btn-white btn-primary" ng-click="addSupervisor()" ng-if="::hasPermission('mg.electioncenter')">
+      <i class="fa fa fa-plus"></i>&nbsp;
+      <small>{{::'mg.electioncenter.view.addSupervisor' | translate}}</small>
+    </button>
+    
+    <hr/>
+  
+  </div>
+  
+  <!-- Success/Error Messages -->
+  <success-error alerts="alerts"></success-error>
+  
+  <section>
+    
+    <form id="electionCenterForm" name="electionCenterForm" class="form-horizontal" exit-confirmation>
+      
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">{{::'mg.electioncenter.view.geographicalData' | translate}}</div>
+            <div class="panel-body">
+              
+              <article class="col-xs-12 col-md-12">
+                <admin-unit
+                        geographical-unit-id="electionCenter.geographicalUnitId"
+                        decentral-admin-id="electionCenter.decentralAdminId"
+                        region-id="electionCenter.regionId"
+                        regional-unit-id="electionCenter.regionalUnitId"
+                        municipality-id="electionCenter.municipalityId"
+                        municipal-unit-id="electionCenter.municipalUnitId"
+                        foreign="electionCenter.foreign"
+                        foreign-country-iso-code="electionCenter.foreignCountry.isoCode"
+                        foreign-city="electionCenter.foreignCity">
+                </admin-unit>
+              </article>
+            
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">{{::'mg.electioncenter.view.generalData'| translate}}</div>
+            <div class="panel-body">
+              
+              <article class="col-xs-12 col-md-12">
+                
+                <!-- Κωδικός -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.code' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.code" name="code"/>
+                  </div>
+                </div>
+                
+                <!-- Ονομασία -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.name' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.name" name="name"/>
+                  </div>
+                </div>
+                
+                <!-- Διεύθυνση -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.address' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.address" name="address"/>
+                  </div>
+                </div>
+                
+                <!-- Τ.Κ. -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.postalCode' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.postalCode" name="postalCode"/>
+                  </div>
+                </div>
+                
+                <!-- Τηλέφωνο -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.telephone' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.telephone" name="telephone"/>
+                  </div>
+                </div>
+                
+                <!-- Όροφος -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.floorNumber' | translate}}</label>
+                  <div class="col-xs-2 col-md-2">
+                    <cr-inputnumeric name="floorNumber" max-digits="2" value="electionCenter.floorNumber" />
+                  </div>
+                </div>
+                
+                <!-- Πρόσβαση ΑΜΕΑ -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.disabledAccess' | translate}}</label>
+                  <div class="col-xs-1">
+                    <cr-checkbox name="disabledAccess" model="electionCenter.disabledAccess">
+                  </div>
+                </div>
+                
+                <!-- Εκτιμώμενες Κάλπες -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.estimatedBallotBoxes' | translate}}</label>
+                  <div class="col-xs-2 col-md-2">
+                    <cr-inputnumeric name="estimatedBallotBoxes" max-digits="3" value="electionCenter.estimatedBallotBoxes" />
+                  </div>
+                </div>
+                
+                <!-- Κάλπες -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.ballotBoxes' | translate}}</label>
+                  <div class="col-xs-2 col-md-2">
+                    <cr-inputnumeric name="ballotBoxes" max-digits="4" value="electionCenter.ballotBoxes" />
+                  </div>
+                </div>
+                
+                <!-- Ψηφίσαντες 2007 -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.voters2007' | translate}}</label>
+                  <div class="col-xs-2 col-md-2">
+                    <cr-inputnumeric name="voters2007" max-digits="8" value="electionCenter.voters2007" />
+                  </div>
+                </div>
+                
+                <!-- Παρατηρήσεις -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.comments' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <cr-textarea textarea-model="electionCenter.comments" name="comments" rows="3" size="500"></cr-textarea>
+                  </div>
+                </div>
+              
+              </article>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          
+          <div class="panel panel-default" ng-show="currentElectionProcedure.round === 'FIRST' && electionCenter.supervisorFirst">
+            <div class="panel-heading">{{::'mg.electioncenter.view.supervisorData'| translate}}</div>
+            <div class="panel-body">
+              
+              <article class="col-xs-12 col-md-12">
+                <input type="hidden" ng-model="electionCenter.supervisorFirst.id"/>
+                <input type="hidden" ng-model="electionCenter.supervisorFirst.electionProcedureId"/>
+                <input type="hidden" ng-model="electionCenter.supervisorFirst.type"/>
+                
+                <!-- Επώνυμο -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.lastName' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorFirst.lastName" name="supervisorFirst.lastName"/>
+                  </div>
+                </div>
+                
+                <!-- Όνομα -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.firstName' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorFirst.firstName" name="supervisorFirst.firstName"/>
+                  </div>
+                </div>
+                
+                <!-- Πατρώνυμο -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.fatherFirstName' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorFirst.fatherFirstName"
+                           name="supervisorFirst.fatherFirstName"/>
+                  </div>
+                </div>
+                
+                <!-- Τηλέφωνο -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.telephone' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorFirst.telephone" name="supervisorFirst.telephone"/>
+                  </div>
+                </div>
+                
+                <!-- Κινητό -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.cellphone' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorFirst.cellphone" name="supervisorFirst.cellphone"/>
+                  </div>
+                </div>
+                
+                <!-- E-mail -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.email' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorFirst.email" name="supervisorFirst.email"/>
+                  </div>
+                </div>
+                
+                <!-- Διεύθυνση -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.address' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorFirst.address" name="supervisorFirst.address"/>
+                  </div>
+                </div>
+                
+                <!-- Ταχ. Κώδικας -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.postalCode' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorFirst.postalCode" name="supervisorFirst.postalCode"/>
+                  </div>
+                </div>
+                
+                <!-- Παρατηρήσεις -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.comments' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <cr-textarea textarea-model="electionCenter.supervisorFirst.comments" name="supervisorFirst.comments" rows="3"
+                                 size="500"></cr-textarea>
+                  </div>
+                </div>
+              
+              </article>
+            
+            </div>
+          </div>
+      
+          
+          <div class="panel panel-default" ng-show="currentElectionProcedure.round === 'SECOND' && electionCenter.supervisorSecond">
+            <div class="panel-heading">{{::'mg.electioncenter.view.supervisorData'| translate}}</div>
+            <div class="panel-body">
+              
+              <article class="col-xs-12 col-md-12">
+                <input type="hidden" ng-model="electionCenter.supervisorSecond.id"/>
+                <input type="hidden" ng-model="electionCenter.supervisorSecond.electionProcedureId"/>
+                <input type="hidden" ng-model="electionCenter.supervisorSecond.type"/>
+                
+                <!-- Επώνυμο -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.lastName' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorSecond.lastName" name="supervisorSecond.lastName"/>
+                  </div>
+                </div>
+                
+                <!-- Όνομα -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.firstName' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorSecond.firstName" name="supervisorSecond.firstName"/>
+                  </div>
+                </div>
+                
+                <!-- Πατρώνυμο -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.fatherFirstName' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorSecond.fatherFirstName"
+                           name="supervisorSecond.fatherFirstName"/>
+                  </div>
+                </div>
+                
+                <!-- Τηλέφωνο -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.telephone' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorSecond.telephone" name="supervisorSecond.telephone"/>
+                  </div>
+                </div>
+                
+                <!-- Κινητό -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.cellphone' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorSecond.cellphone" name="supervisorSecond.cellphone"/>
+                  </div>
+                </div>
+                
+                <!-- E-mail -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.email' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorSecond.email" name="supervisorSecond.email"/>
+                  </div>
+                </div>
+                
+                <!-- Διεύθυνση -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.address' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorSecond.address" name="supervisorSecond.address"/>
+                  </div>
+                </div>
+                
+                <!-- Ταχ. Κώδικας -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.postalCode' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="electionCenter.supervisorSecond.postalCode" name="supervisorSecond.postalCode"/>
+                  </div>
+                </div>
+                
+                <!-- Παρατηρήσεις -->
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'mg.electioncenter.view.supervisor.comments' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <cr-textarea textarea-model="electionCenter.supervisorSecond.comments" name="supervisorSecond.comments" rows="3"
+                                 size="500"></cr-textarea>
+                  </div>
+                </div>
+              
+              </article>
+            
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    
+    </form>
+    
+    <div class="panel panel-default" ng-if="electionCenter.id">
+      <div class="panel-heading">{{::'mg.electioncenter.view.departments.generalData' | translate}}</div>
+      <div class="panel-body">
+        
+        <div class="row">
+          <article class="col-xs-12 col-md-12">
+            <div class="cr-btn-group-actions" style="padding-left: 1rem;">
+              <button type="button"
+                      class="btn btn-primary"
+                      ng-click="retrieveElectionDepartmentGridData()"
+                      ng-disabled="indexLoading"
+                      button-spinner="indexLoading"
+                      button-prepend="fa fa-search"
+                      ng-if="::hasPermission('mg.electiondepartment')">
+                <small>{{::'global.retrieve' | translate}}</small>
+              </button>
+              
+              <button type="button"
+                      class="btn btn-success"
+                      ng-click="createNewElectionDepartment()"
+                      ng-disabled="indexLoading"
+                      button-spinner="indexLoading"
+                      button-prepend="fa fa-plus"
+                      ng-if="::hasPermission('mg.electiondepartment')">
+                <small>{{::'global.newRecord' | translate}}</small>
+              </button>
+              
+              <hr/>
+            
+            </div>
+            
+            <view-jq-grid
+                    grid-id="election-department-list-grid"
+                    grid-data="electionDepartmentGridData"
+                    view-url="{{::electionDepartmentViewUrl}}"
+                    load-complete="stopIndexLoading()"
+                    load-error="errorIndexLoading()"
+                    retrieve-data="retrieveElectionDepartmentGridData()">
+            </view-jq-grid>
+          </article>
+        
+        </div>
+      </div>
+    </div>
+  
+  </section>
+
+</div>

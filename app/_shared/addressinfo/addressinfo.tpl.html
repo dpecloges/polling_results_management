@@ -1,0 +1,62 @@
+<div>
+
+  <!-- Οδός -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'Address'}), fromNull: fromNull({elem: name + 'Address'})}">
+      {{::'common.address' | translate}}
+    </label>
+    <div class="col-md-8">
+      <input type="text" class="form-control"
+        ng-model="address"
+        limit-to="{{::limits().address}}"
+        name="{{name}}Address"
+        ng-readonly="::disabled || (changeable && !changeable({elem: name + 'Address'}))" />
+    </div>
+  </div>
+
+  <!-- Αριθμός -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'AddressNo'}), fromNull: fromNull({elem: name + 'AddressNo'})}">
+      {{::'common.addressNo' | translate}}
+    </label>
+    <div class="col-md-8">
+      <input type="text" class="form-control"
+        ng-model="addressNo"
+        limit-to="{{::limits().addressNo}}"
+        name="{{name}}AddressNo"
+        ng-readonly="::disabled || (changeable && !changeable({elem: name + 'AddressNo'}))" />
+    </div>
+  </div>
+
+  <!-- Ταχυδρ. Κώδικας -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'AddressTk'}), fromNull: fromNull({elem: name + 'AddressTk'})}">
+      {{::'common.addressTk' | translate}}
+    </label>
+    <div class="col-md-8">
+      <input type="text" class="form-control"
+        mask="99999"
+        mask-restrict="{{::isMigrated ? 'accept' : 'reject'}}"
+        mask-limit="{{::!isMigrated}}"
+        ng-model="addressTk"
+        name="{{name}}AddressTk"
+        ng-readonly="::disabled || (changeable && !changeable({elem: name + 'AddressTk'}))"
+      />
+    </div>
+  </div>
+
+  <!-- Τηλέφωνο -->
+  <div class="form-group" ng-show="::hasTelephone">
+    <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'Telephone'}), fromNull: fromNull({elem: name + 'Telephone'})}">
+      {{::'common.telephone' | translate}}
+    </label>
+    <div class="col-md-8">
+      <input type="text" class="form-control"
+        ng-model="telephone"
+        limit-to="{{::limits().telephone}}"
+        name="{{name}}Telephone"
+        ng-readonly="::disabled || (changeable && !changeable({elem: name + 'Telephone'}))" />
+    </div>
+  </div>
+
+</div>

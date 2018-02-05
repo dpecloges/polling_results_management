@@ -1,0 +1,57 @@
+<div class="modal-header cr-modal-header">
+  <h4 class="modal-title">{{volunteer.lastName}} {{volunteer.firstName}}: {{::'us.volunteer.reassignment.title' | translate:volunteer}}</h4>
+</div>
+
+<div class="modal-body">
+  <div class="form-horizontal">
+    <div class="col-xs-12 no-padding">
+
+      <!-- Γεωγραφικά στοιχεία -->
+      <div class="col-sm-12 no-padding-left">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            {{::'us.volunteer.reassignment.electiondepartment.list.args' | translate}}
+          </div>
+          <div class="panel-body cr-panel-args">
+            <admin-unit
+            	geographical-unit-id="args.geographicalUnitId"
+            	decentral-admin-id="args.decentralAdminId"
+            	region-id="args.regionId"
+            	regional-unit-id="args.regionalUnitId"
+            	municipality-id="args.municipalityId"
+            	municipal-unit-id="args.municipalUnitId"
+            	foreign="args.foreign"
+            	foreign-country-iso-code="args.foreignCountryIsoCode"
+            	foreign-city="args.foreignCity">
+      		</admin-unit>
+            <div class="cr-btn-group-actions cr-btn-group-centered padding-bottom-5">
+              <hr/>
+              <button type="button" class="btn btn-primary" ng-click="retrieveGridData()" ng-disabled="indexLoading" button-spinner="indexLoading"
+                      button-prepend="fa fa-search" ng-if="::hasPermission('mg.electiondepartment')">
+                <small>{{::'global.retrieve' | translate}}</small>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div> 
+  </div> <!-- form-horizontal -->
+  
+  <div class="row">
+    <article class="col-sm-12">
+      <view-jq-grid grid-id="{{::gridId}}" grid-data="gridData" parent-width="true" double-click="doubleClick(id)" load-complete="stopIndexLoading()"
+                    load-error="errorIndexLoading()"></view-jq-grid>
+    </article>
+  </div>
+  
+</div> <!-- modal-body -->
+
+<div class="modal-footer cr-btn-group-actions">
+  <button class="btn btn-primary" type="button" ng-click="confirm()" ng-if="::hasPermission('mg.electiondepartment')">
+    <small>{{::'global.confirm' | translate}}</small>
+  </button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">
+    <small>{{::'global.cancel' | translate}}</small>
+  </button>
+</div>

@@ -1,0 +1,41 @@
+{
+  "us.user.view.delete.confirmation": "Θα πραγματοποιηθεί διαγραφή του χρήστη. Είστε βέβαιοι ότι θέλετε να προχωρήσετε;",
+  "us.user.view.delete.success": "Ο χρήστης διαγράφηκε με επιτυχία",
+  "us.user.view.changePassword": "Αλλαγή Κωδικού Πρόσβασης",
+  
+  "us.user.list.args.username": "Αναγνωριστικό Χρήστη",
+  "us.user.list.args.lastName": "Επώνυμο",
+  "us.user.list.args.firstName": "Όνομα",
+  "us.user.list.args.email": "E-mail",
+  "us.user.list.args.hasElectionDepartmentId": "Σύνδεση με Εκλ. Τμήμα",
+  "us.user.list.args.electionCenterId": "Εκλογικό Κέντρο",
+  "us.user.list.args.electionDepartmentId": "Εκλογικό Τμήμα",
+  
+  
+  "us.user.list.grid.username": "Αναγνωριστικό Χρήστη",
+  "us.user.list.grid.lastName": "Επώνυμο",
+  "us.user.list.grid.firstName": "Όνομα",
+  "us.user.list.grid.email": "E-mail",
+  "us.user.list.grid.electionCenterCode": "Κωδικός Εκλ. Κέντρου",
+  "us.user.list.grid.electionCenterName": "Ονομασία Εκλ. Κέντρου",
+  "us.user.list.grid.electionDepartmentCode": "Κωδικός Εκλ. Τμήματος",
+  "us.user.list.grid.electionDepartmentName": "Ονομασία Εκλ. Τμήματος",
+
+  "us.user.view.generalData": "Στοιχεία",
+
+  "us.user.view.username": "Αναγνωριστικό Χρήστη",
+  "us.user.view.password": "Κωδικός Πρόσβασης",
+  "us.user.view.passwordRepeat": "Επαλήθευση Κωδικού Πρόσβασης",
+  "us.user.view.email": "E-mail",
+  "us.user.view.lastName": "Επώνυμο",
+  "us.user.view.firstName": "Όνομα",
+  "us.user.view.electionDepartmentId": "Εκλογικό Τμήμα",
+  "us.user.view.roleId": "Ρόλος",
+  
+  "us.user.view.error.passwordsNotMatch": "Οι κωδικοί πρόσβασης δεν ταιριάζουν.",
+  "us.user.view.error.emptyUsername": "Δεν έχει οριστεί αναγνωριστικό χρήστη.",
+  "us.user.view.error.emptyPassword": "Δεν έχει οριστεί κωδικός πρόσβασης.",
+  "us.user.view.error.emptyLastName": "Δεν έχει οριστεί επώνυμο.",
+  "us.user.view.error.emptyFirstName": "Δεν έχει οριστεί όνομα.",
+  "us.user.view.error.noRole": "Δεν έχει οριστεί ρόλος."
+}

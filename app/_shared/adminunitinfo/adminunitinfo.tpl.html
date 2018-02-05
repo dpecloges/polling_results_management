@@ -1,0 +1,90 @@
+<div>
+
+    <!-- Νομός -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'MunicipalityId'}), fromNull: fromNull({elem: name + 'MunicipalityId'})}">
+            {{::'common.prefecture' | translate}}
+        </label>
+        <div class="col-md-8">
+            <select class="form-control" name="{{::name}}PrefectureId"
+                    chosen="{{::$root.chosenAttrs}}"
+                    ng-model="tempPrefectureId"
+                    ng-disabled="disabled || (changeable && !changeable({elem: name + 'MunicipalityId'}))"
+                    ng-change="changedPrefecture()"
+                    ng-options="item.id as (item.name + (item.code?' (' + item.code+ ')':'') ) for item in prefectures">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Δήμος -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'MunicipalityId'}), fromNull: fromNull({elem: name + 'MunicipalityId'})}">
+            {{::'common.municipality' | translate}}
+        </label>
+        <div class="col-md-8">
+            <article class="input-group">
+                <select class="form-control" name="{{::name}}MunicipalityId" id="{{::name}}MunicipalityId"
+                        chosen="{{::$root.chosenAttrs}}"
+                        ng-model="municipalityId"
+                        ng-disabled="disabled || (changeable && !changeable({elem: name + 'MunicipalityId'}))"
+                        ng-class="{field_required: actrequired({elem: '{{::name}}MunicipalityId'}) && !municipalityId}"
+                        ng-change="changeMunicipality()"
+                        ng-options="item.id as (item.name + (item.code?' (' +item.code+ ') ':'') + (item.isActive? '': ' ('  + item.startDate  + ' - '  + item.endDate + ')') ) for item in municipalities">
+                    <option value=""></option>
+                </select>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default datepickerBtn" title="Ανάκτηση και ανενεργών Δήμων" ng-click="fetchAllMunicipalities();" ng-disabled="disabled || (changeable && !changeable({elem: name + 'MunicipalityId'}))">
+                    <i class="fa fa-archive bigger-130"></i>
+                  </button>
+                </span>
+            </article>
+        </div>
+    </div>
+
+    <!-- Τρέχων Δήμος -->
+    <div class="form-group" ng-show="municipalityIsActive()">
+        <label class="col-md-4 control-label">{{::'common.activeMunicipality' | translate}}</label>
+        <div class="col-md-8">
+            <input type="hidden" ng-model="activeMunicipality.id" />
+            <input type="text" class="form-control" value="{{activeMunicipality.name}}" disabled />
+        </div>
+    </div>
+
+    <!-- Δημοτική Ενότητα -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'MunicipalUnitId'}), fromNull: fromNull({elem: name + 'MunicipalUnitId'})}">
+            {{::'common.municipalUnit' | translate}}
+        </label>
+        <div class="col-md-8">
+            <select class="form-control" name="{{::name}}MunicipalUnitId"
+                    chosen="{{::$root.chosenAttrs}}"
+                    ng-model="tempMunicipalUnitId"
+                    ng-class="{field_required: actrequired({elem: '{{::name}}MunicipalUnitId'}) && !municipalUnitId}"
+                    ng-disabled="disabled || (changeable && !changeable({elem: name + 'MunicipalUnitId'}))"
+                    ng-change="changedMunicipalUnit()"
+                    ng-options="item.id as (item.name + (item.code?' (' + item.code+ ')':'') ) for item in municipalUnits">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Τοπ/Δημοτ. Κοινότητα -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" ng-class="::{required: required({elem: name + 'MunicipalCommunityId'}), fromNull: fromNull({elem: name + 'MunicipalCommunityId'})}">
+            {{::'common.municipalCommunity' | translate}}
+        </label>
+        <div class="col-md-8">
+            <select class="form-control" name="{{::name}}MunicipalCommunityId"
+                    chosen="{{::$root.chosenAttrs}}"
+                    ng-model="tempMunicipalCommunityId"
+                    ng-class="{field_required: actrequired({elem: '{{::name}}MunicipalCommunityId'}) && !municipalCommunityId}"
+                    ng-disabled="disabled || (changeable && !changeable({elem: name + 'MunicipalCommunityId'}))"
+                    ng-change="changedMunicipalCommunity()"
+                    ng-options="item.id as (item.name + (item.code?' (' +item.code+ ')':'') ) for item in municipalCommunities">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+
+</div>

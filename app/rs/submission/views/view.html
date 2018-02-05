@@ -1,0 +1,183 @@
+<div id="content">
+  
+  <div class="cr-btn-group-actions">
+    
+    <button class="btn btn-white btn-success"
+      ng-disabled="saveLoading || electionDepartment.submitted"
+      button-spinner="saveLoading"
+      button-prepend="fa fa-floppy-o"
+      ng-click="submit()"
+      ng-if="::hasPermission('rs.submission')">
+      <small>{{::'rs.submission.view.submit' | translate}}</small>
+    </button>
+        
+    <hr/>
+  
+  </div>
+    
+  <!-- Success/Error Messages -->
+  <success-error alerts="alerts"></success-error>
+  
+  <section>
+    
+    <form id="electionDepartmentForm" name="electionDepartmentForm" class="form-horizontal" exit-confirmation>
+      
+      <!-- 1η Στήλη-->
+      <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{::'rs.submission.view.electionDepartmentData' | translate}}</div>
+          <div class="panel-body">
+            
+            <article class="col-xs-12 col-md-12">
+            
+              <div class="form-group">
+                <label class="col-xs-3 col-md-4 control-label">{{::'rs.submission.view.electionDepartment' | translate}}</label>
+                <div class="col-xs-9 col-md-6" ng-switch="userHasElectionDepartment">
+                                    
+                  <input type="text" class="form-control"
+                    ng-switch-when="true"
+                    value="{{::electionDepartment.name}}"
+                    disabled />
+                  
+                  <select class="form-control"
+                    ng-switch-when="false"
+                    name="id"
+                    chosen="{{::$root.chosenAttrs}}"
+                    ng-model="electionDepartment.id"
+                    ng-change="setElectionDepartment(electionDepartment.id)"
+                    ng-disabled="disabled"
+                    ng-options="item.id as item.displayName for item in electionDepartments">
+                    <option value=""></option>
+                  </select>
+
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-xs-3 col-md-4 control-label">{{::'rs.submission.view.voterCount' | translate}}</label>
+                <div class="col-xs-6 col-md-4">
+                  <input type="text" class="form-control" value="{{voterCount}}" disabled />
+                </div>
+              </div>
+              
+            </article>
+          
+          </div>
+        </div>
+      
+        <div class="panel panel-default" ng-if="electionDepartment.id">
+          <div class="panel-heading">{{::'rs.submission.view.genεralResultsData' | translate}}</div>
+          <div class="panel-body">
+            
+            <article class="col-sm-12 col-md-12">
+              <div class="form-group">
+                <label class="col-xs-3 col-md-4 control-label">{{::'rs.submission.view.totalVotes' | translate}}</label>
+                <div class="col-xs-5 col-md-4">
+                  <cr-inputnumeric value="electionDepartment.totalVotes" max-digits="8" on-change="calculateValidVotes()" ng-disabled="electionDepartment.submitted" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-xs-3 col-md-4 control-label">{{::'rs.submission.view.validVotes' | translate}}</label>
+                <div class="col-xs-5 col-md-4">
+                  <cr-inputnumeric value="electionDepartment.validVotes" max-digits="8" ng-disabled="::true" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-xs-3 col-md-4 control-label">{{::'rs.submission.view.invalidVotes' | translate}}</label>
+                <div class="col-xs-5 col-md-4">
+                  <cr-inputnumeric value="electionDepartment.invalidVotes" max-digits="8" on-change="calculateValidVotes()" ng-disabled="electionDepartment.submitted" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-xs-3 col-md-4 control-label">{{::'rs.submission.view.whiteVotes' | translate}}</label>
+                <div class="col-xs-5 col-md-4">
+                  <cr-inputnumeric value="electionDepartment.whiteVotes" max-digits="8" on-change="calculateValidVotes()" ng-disabled="electionDepartment.submitted" />
+                </div>
+              </div>
+            </article>
+        
+          </div>
+        </div>
+
+        <div class="panel panel-default" ng-if="electionDepartment.id">
+          <div class="panel-heading">{{::'rs.submission.view.attachmentData' | translate}}</div>
+          <div class="panel-body">
+            
+            <article class="col-sm-12 col-md-12">
+              
+              <div class="row ">
+                <div class="col-md-12">
+                  <div class="btn btn-primary btn-upload"
+                    upload-button url="{{$root.resultsUploadFile}}/{{electionDepartment.id}}/{{AttachmentType.RESULTS}}"
+                    on-upload="onUploadStart(AttachmentType.RESULTS)"
+                    on-success="onUploadSuccess(response)"
+                    on-error="onUploadError(response)"
+                    on-complete="onUploadComplete(AttachmentType.RESULTS)"
+                    ng-disabled="uploadingAccessFile1">
+                    <i class="fa font-size-110-percent" ng-class="{'fa-upload': !uploadingAccessFile1, 'fa-spinner fa-spin': uploadingAccessFile1}"></i>
+                    <small>{{::'rs.submission.view.attachmentOne' | translate}}</small>
+                  </div>
+
+                  <a ng-click="downloadFile(AttachmentType.RESULTS)"
+                    ng-show="::hasPermission('rs.submission')"
+                    ng-if="electionDepartment.attachmentName">
+                    {{electionDepartment.attachmentName}}
+                  </a>
+                </div>
+              </div>
+              
+              <br>
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="btn btn-primary btn-upload"
+                    upload-button url="{{$root.resultsUploadFile}}/{{electionDepartment.id}}/{{AttachmentType.CASHIER}}"
+                    on-upload="onUploadStart(AttachmentType.CASHIER)"
+                    on-success="onUploadSuccess(response)"
+                    on-error="onUploadError(response)"
+                    on-complete="onUploadComplete(AttachmentType.CASHIER)"
+                    ng-disabled="uploadingAccessFile2">
+                    <i class="fa font-size-110-percent" ng-class="{'fa-upload': !uploadingAccessFile2, 'fa-spinner fa-spin': uploadingAccessFile2}"></i>
+                    <small>{{::'rs.submission.view.attachmentTwo' | translate}}</small>
+                  </div>
+
+                  <a ng-click="downloadFile(AttachmentType.CASHIER)"
+                    ng-show="::hasPermission('rs.submission')"
+                    ng-if="electionDepartment.attachmentTwoName">
+                    {{electionDepartment.attachmentTwoName}}
+                  </a>
+                </div>
+              </div>
+              
+            </article>
+
+          </div>
+        </div>
+      </div>
+            
+      <!-- 2η Στήλη-->
+      <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default" ng-if="electionDepartment.id">
+          <div class="panel-heading">{{::'rs.submission.view.candidateResultsData' | translate}}</div>
+          <div class="panel-body">
+            
+            <article class="col-sm-12 col-md-10 col-md-offset-1">
+              <candidate-results
+                election-procedure-id="currentElectionProcedure.id"
+                model="electionDepartment"
+                ng-disabled="electionDepartment.submitted"
+                max-digits="8">
+              </candidate-results>
+            </article>
+          
+          </div>
+        </div>
+      </div>
+    </form>
+  
+  </section>
+
+</div>

@@ -1,0 +1,10 @@
+{
+  "ep.statistics.list.args.area": "Γεωγραφικό Επίπεδο",
+  "ep.statistics.list.grid.topVerifications": "Περισσότερες Διαπιστεύεις",
+  "ep.statistics.list.grid.lowestVerifications": "Λιγότερες Διαπιστεύσεις",
+  "ep.statistics.list.grid.topUndoVotes": "Περισσότερες Άρσεις",
+  "ep.statistics.list.grid.lowestUndoVotes": "Λιγότερες Άρσεις",
+  "ep.statistics.list.args.all": "Όλα",
+  "ep.statistics.list.grid.columnArea": "",
+  "ep.statistics.list.grid.columnNumber": "Πλήθος"
+}

@@ -1,0 +1,129 @@
+<div id="content">
+  
+  <section>
+    
+    <div class="row">
+      
+      <article class="col-xs-12">
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            {{::'global.args' | translate}}
+          </div>
+          <div class="panel-body cr-panel-args">
+            
+            <form class="form-horizontal">
+              <fieldset>
+                
+                <div class="col-xs-12 col-md-6">
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'us.user.list.args.username' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <input type="text" class="form-control" ng-model="args.username"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'us.user.list.args.lastName' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <input type="text" class="form-control" ng-model="args.lastName"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'us.user.list.args.firstName' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <input type="text" class="form-control" ng-model="args.firstName"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'us.user.list.args.email' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <input type="text" class="form-control" ng-model="args.email"/>
+                    </div>
+                  </div>
+                
+                </div>
+                
+                <div class="col-xs-12 col-md-6">
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'us.user.list.args.hasElectionDepartmentId' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <select chosen="{{::chosenNoDeselectAttrs}}" class="form-control" ng-model="args.hasElectionDepartmentId" ng-change="clearElectionCenterDepartmentArgs()">
+                        <option value="">{{::'common.args.all' | translate}}</option>
+                        <option value="YES">{{::'common.args.yes' | translate}}</option>
+                        <option value="NO">{{::'common.args.no' | translate}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group" ng-show="args.hasElectionDepartmentId !== 'NO'">
+                    <label class="control-label col-xs-3 col-md-4">{{::'us.user.list.args.electionCenterId' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="args.electionCenterId"
+                              ng-options="item.id as item.displayName for item in electionCenters">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group" ng-show="args.hasElectionDepartmentId !== 'NO'">
+                    <label class="control-label col-xs-3 col-md-4">{{::'us.user.list.args.electionDepartmentId' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="args.electionDepartmentId"
+                              ng-options="item.id as item.displayName for item in electionDepartments | filter: (args.electionCenterId) && {electionCenterId: args.electionCenterId} : true">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                  </div>
+                
+                </div>
+              
+              </fieldset>
+              
+              <div class="cr-btn-group cr-btn-group-centered">
+                
+                <hr/>
+                
+                <button type="submit" ng-if="::hasPermission('sa.user')" class="btn btn-primary" ng-click="retrieveGridData()"
+                        ng-disabled="indexLoading" button-spinner="indexLoading" button-prepend="fa fa-search">
+                  <small>{{::'global.retrieve'| translate}}</small>
+                </button>
+                
+                <button type="button" ng-if="::hasPermission('sa.user')" class="btn btn-info" ng-click="clearArguments()">
+                  <i class="fa fa-trash"></i>
+                  <small>{{::'global.clear'| translate}}</small>
+                </button>
+              
+              </div>
+            
+            </form>
+          
+          </div>
+        </div>
+      
+      </article>
+    </div>
+    
+    <div class="row">
+      <div class="pull-left col-xs-12 col-md-12">
+        <!-- Success/Error Messages -->
+        <success-error alerts="alerts"></success-error>
+      </div>
+      <article class="col-xs-12 col-sm-12">
+        <view-jq-grid
+                grid-id="userListGrid"
+                grid-data="gridData"
+                view-url="{{::viewUrl}}"
+                load-complete="stopIndexLoading()"
+                load-error="errorIndexLoading()">
+        </view-jq-grid>
+      </article>
+    </div>
+  
+  </section>
+
+</div>

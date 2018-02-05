@@ -1,0 +1,98 @@
+<div id="content">
+  
+  <div class="cr-btn-group-actions">
+    
+    <button type="button" class="btn btn-white btn-success" ng-disabled="saveLoading" button-spinner="saveLoading"
+            button-prepend="fa fa-calendar-plus-o" ng-click="scheduleJob()"
+            ng-if="::hasPermission('sys.admin')" ng-show="!jobStatus.pending">
+      <small>{{::'sa.scheduledjob.view.action.schedule' | translate}}</small>
+    </button>
+  
+    <button type="button" class="btn btn-white btn-warning" ng-disabled="saveLoading" button-spinner="saveLoading"
+            button-prepend="fa fa-calendar-minus-o" ng-click="unscheduleJob()"
+            ng-if="::hasPermission('sys.admin')" ng-show="jobStatus.pending">
+      <small>{{::'sa.scheduledjob.view.action.unschedule' | translate}}</small>
+    </button>
+  
+    <div ng-show="jobGroup === 'calculate_results'" class="schedule-job-title pull-right">{{::'sa.scheduledjob.view.calculate_results.title' | translate}}</div>
+    <div ng-show="jobGroup === 'calculate_snapshots'" class="schedule-job-title pull-right">{{::'sa.scheduledjob.view.calculate_snapshots.title' | translate}}</div>
+    
+    <hr/>
+  
+  </div>
+  
+  <!-- Success/Error Messages -->
+  <success-error alerts="alerts"></success-error>
+  
+  <section>
+    
+    <form id="jobStatusForm" name="jobStatusForm" class="form-horizontal" exit-confirmation>
+  
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          
+          <div class="panel panel-default">
+            <div class="panel-heading">{{::'sa.scheduledjob.view.generalData'| translate}}</div>
+            <div class="panel-body">
+              
+              <article class="col-xs-12 col-md-12">
+                
+                <div class="form-group" ng-show="!jobStatus.pending">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'sa.scheduledjob.view.cronExpression' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" name="cronExpression" ng-model="jobStatus.cronExpression"/>
+                  </div>
+                </div>
+  
+                <div class="form-group" ng-show="jobStatus.pending">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'sa.scheduledjob.view.previousFireDate' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <compact-datetimepicker model="jobStatus.previousFireDate" name="previousFireDate" type="3" ng-disabled="true"></compact-datetimepicker>
+                  </div>
+                </div>
+                
+                <div class="form-group" ng-show="jobStatus.pending">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'sa.scheduledjob.view.nextFireDate' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <compact-datetimepicker model="jobStatus.nextFireDate" name="nextFireDate" type="3" ng-disabled="true"></compact-datetimepicker>
+                  </div>
+                </div>
+                
+              </article>
+            
+            </div>
+          </div>
+          
+        </div>
+  
+        <div class="col-xs-12 col-md-6" ng-show="!jobStatus.pending">
+    
+          <div class="panel panel-default">
+            <div class="panel-heading">{{::'sa.scheduledjob.view.sampleData'| translate}}</div>
+            <div class="panel-body">
+        
+              <article class="col-xs-12 col-md-12">
+          
+                <div class="form-group">
+                  <label class="col-xs-3">0 * 14 * * ?</label>
+                  <label class="col-xs-9">Fire every minute starting at 2pm and ending at 2:59pm, every day</label>
+                </div>
+  
+                <div class="form-group">
+                  <label class="col-xs-3">0 0/5 * * * ?</label>
+                  <label class="col-xs-9">Fire every 5 minutes on every hour (0, 5, 10, 15...) every day</label>
+                </div>
+        
+              </article>
+      
+            </div>
+          </div>
+  
+        </div>
+      </div>
+      
+    </form>
+  
+  </section>
+
+</div>

@@ -1,0 +1,24 @@
+<div ng-switch on="isChart()">
+  <div ng-switch-when="chart">
+    <canvas id="bar" class="chart-horizontal-bar"
+      chart-options="::chartOptions"
+      chart-data="chartData"
+      chart-labels="::chartLabels"
+      chart-colors="::chartColors">
+    </canvas>
+  </div>
+  
+  <div style="overflow-x: auto;" ng-switch-default>
+    <table class="table table-bordered table-condensed">
+      <tr ng-repeat="candidate in candidates">
+        <td class="left">{{formatName(candidate)}}</td>
+        <td class="mid col-md-4">
+            <cr-inputnumeric
+              value="model[candidateVotesModel(candidate)]"
+              max-digits="{{maxDigits}}"
+              ng-disabled="disabled"/>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

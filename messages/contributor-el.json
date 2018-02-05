@@ -1,0 +1,23 @@
+{
+  "mg.contributor.list.args.lastName": "Επώνυμο",
+  "mg.contributor.list.args.firstName": "Όνομα",
+  
+  "mg.contributor.list.grid.lastName": "Επώνυμο",
+  "mg.contributor.list.grid.firstName": "Όνομα",
+  "mg.contributor.list.grid.fatherFirstName": "Πατρώνυμο",
+  "mg.contributor.list.grid.telephone": "Τηλέφωνο",
+  "mg.contributor.list.grid.cellphone": "Κινητό",
+  "mg.contributor.list.grid.email": "E-mail",
+  "mg.contributor.list.grid.address": "Διεύθυνση",
+  "mg.contributor.list.grid.postalCode": "Τ.Κ.",
+  
+  "mg.contributor.view.lastName": "Επώνυμο",
+  "mg.contributor.view.firstName": "Όνομα",
+  "mg.contributor.view.fatherFirstName": "Πατρώνυμο",
+  "mg.contributor.view.telephone": "Τηλέφωνο",
+  "mg.contributor.view.cellphone": "Κινητό",
+  "mg.contributor.view.email": "E-mail",
+  "mg.contributor.view.address": "Διεύθυνση",
+  "mg.contributor.view.postalCode": "Τ.Κ.",
+  "mg.contributor.view.comments": "Παρατηρήσεις"
+}

@@ -1,0 +1,100 @@
+<div id="content">
+  
+  <section>
+    
+    <div class="row">
+      
+      <article class="col-xs-12">
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            {{::'global.args' | translate}}
+          </div>
+          <div class="panel-body cr-panel-args">
+            
+            <form class="form-horizontal">
+              <fieldset>
+                
+                <div class="col-xs-12 col-md-6">
+                  <admin-unit
+                    geographical-unit-id="args.geographicalUnitId"
+                    decentral-admin-id="args.decentralAdminId"
+                    region-id="args.regionId"
+                    regional-unit-id="args.regionalUnitId"
+                    municipality-id="args.municipalityId"
+                    municipal-unit-id="args.municipalUnitId"
+                    foreign="args.foreign"
+                    foreign-country-iso-code="args.foreignCountryIsoCode"
+                    foreign-city="args.foreignCity"
+                    set-clear="setClear(theDirFn)">
+                  </admin-unit>
+                </div>
+                
+                <div class="col-xs-12 col-md-6">
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'mg.electioncenter.list.args.code' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <input type="text" class="form-control" ng-model="args.code"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'mg.electioncenter.list.args.name' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <input type="text" class="form-control" ng-model="args.name"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'mg.electioncenter.list.args.address' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <input type="text" class="form-control" ng-model="args.address"/>
+                    </div>
+                  </div>
+                </div>
+              
+              </fieldset>
+              
+              <div class="cr-btn-group cr-btn-group-centered">
+                
+                <hr/>
+                
+                <button type="submit" ng-if="::hasPermission('mg.electioncenter')" class="btn btn-primary" ng-click="retrieveGridData()"
+                        ng-disabled="indexLoading" button-spinner="indexLoading" button-prepend="fa fa-search">
+                  <small>{{::'global.retrieve'| translate}}</small>
+                </button>
+                
+                <button type="button" ng-if="::hasPermission('mg.electioncenter')" class="btn btn-info" ng-click="clearArguments()">
+                  <i class="fa fa-trash"></i>
+                  <small>{{::'global.clear'| translate}}</small>
+                </button>
+              
+              </div>
+            
+            </form>
+          
+          </div>
+        </div>
+      
+      </article>
+    </div>
+    
+    <div class="row">
+      <div class="pull-left col-xs-12 col-md-12">
+        <!-- Success/Error Messages -->
+        <success-error alerts="alerts"></success-error>
+      </div>
+      <article class="col-xs-12 col-sm-12">
+        <view-jq-grid
+                grid-id="electionCenterListGrid"
+                grid-data="gridData"
+                view-url="{{::viewUrl}}"
+                load-complete="stopIndexLoading()"
+                load-error="errorIndexLoading()">
+        </view-jq-grid>
+      </article>
+    </div>
+  
+  </section>
+
+</div>

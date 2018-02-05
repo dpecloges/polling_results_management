@@ -1,0 +1,28 @@
+{
+  "common.country": "Χώρα",
+  "common.foreignCountry": "Χώρα Εξωτερικού",
+  "common.foreignCity": "Πόλη Εξωτερικού",
+  "common.geographicalUnit": "Γεωγρ. Ενότητα",
+  "common.municipality": "Δήμος",
+  "common.regionalUnit": "Περιφ. Ενότητα",
+  "common.decentralAdmin": "Αποκ. Διοίκηση",
+  "common.region": "Περιφέρεια",
+  "common.municipalUnit": "Δημ. Ενότητα",
+  "common.prefecture": "Νομός",
+  "common.activeMunicipality": "Τρέχων Δήμος",
+  "common.placeDescr": "Περιγραφή",
+  "common.municipalUnit": "Δημ.Ενότ.",
+  "common.municipalCommunity": "Τ/Δ Κοινότητα",
+  "common.address": "Οδός",
+  "common.addressNo": "Αριθμός",
+  "common.addressTk": "Τ.Κ.",
+  "common.telephone": "Τηλέφωνο",
+  "common.lastName": "Επώνυμο",
+  "common.firstName": "Όνομα",
+  "common.eklSpecialNo": "Ειδ. Εκλ. Αριθμός",
+  "common.email": "E-mail",
+  
+  "common.args.all": "ΟΛΑ",
+  "common.args.yes": "ΝΑΙ",
+  "common.args.no": "ΟΧΙ"
+}

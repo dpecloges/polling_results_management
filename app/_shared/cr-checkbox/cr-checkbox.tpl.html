@@ -1,0 +1,6 @@
+<label class="cr-checkbox">
+    <article class="cr-checkbox">
+        <input type="checkbox" class="checkbox" name="{{name}}" ng-model="model" ng-disabled="::disabled || (changeable && !changeable({elem: name}))" ng-change="change()"/>
+        <span>{{description}}</span>
+    </article>
+</label>

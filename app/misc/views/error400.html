@@ -1,0 +1,49 @@
+<div id="content">
+    <!-- row -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center error-box">
+                        <div class="col-sm-12">
+                            <div class="text-center error-box">
+                                <h1 class="error-text error-text-500 tada animated"><i class="fa fa-hashtag text-warning error-icon-shadow"></i> {{::'global.page400.title' | translate}}</h1>
+                                <h2 class="font-xl"><strong>{{::'global.page400.subtitle' | translate}}</strong></h2>
+                                <br>
+                                <p class="lead semi-bold">
+                                    <strong>
+                                        <span ng-if="exception">
+                                            {{::exception.causeMessage}}<br>
+                                            {{::'global.page400.exception.errorId' | translate}}:&nbsp;{{::exception.errorId}}
+                                        </span>
+                                        <span ng-if="!exception">
+                                            {{::'global.page400.description1' | translate}}
+                                        </span>
+                                        <br>
+                                        <small ng-if="errorUrl" ng-show="false">
+                                            {{::errorUrl}}<br>
+                                        </small>
+                                        <small ng-if="exception" ng-show="false">
+                                            {{::exception.errorMessage}}<br>
+                                            {{::exception.url}}<br>
+                                            {{::exception.causeDetails}}<br>
+                                        </small>
+                                    </strong>
+                                    <strong>
+                                        <small>
+                                            {{::'global.page400.description2' | translate}}<br>
+                                        </small>
+                                    </strong><br>
+                                </p>
+                                <ul class="text-left font-md">
+                                    <li><small>{{::'global.page400.action1' | translate}}</small></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+</div>

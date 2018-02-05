@@ -1,0 +1,5 @@
+<div>
+  <textarea class="form-control {{customclass}}" name="{{name}}" ng-model="textareaModel" ng-readonly="readonly"
+            ng-change="trimIfLengthExceedsSize(size)" ng-trim="false" rows="{{rows}}" size="size" style="resize:none;"></textarea>
+  <span><small>{{::'global.textarea.remaining' | translate}} {{size - textareaModel.length > 0 ? size - textareaModel.length : 0;}}  {{::'global.textarea.characters' | translate }}</small></span>
+</div>

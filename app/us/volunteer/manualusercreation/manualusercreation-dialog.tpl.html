@@ -1,0 +1,90 @@
+<div class="modal-header cr-modal-header">
+  <h4 class="modal-title">{{volunteer.lastName}} {{volunteer.firstName}}: {{::'us.volunteer.list.grid.extraActions.createUser' | translate}}</h4>
+</div>
+
+<div class="modal-body">
+  
+  <form class="form-horizontal">
+  
+  <form class="form-horizontal">
+    
+    <fieldset>
+      
+      <div class="col-xs-12">
+      
+        <!-- Ονοματεπώνυμο εθελοντή -->
+        <div class="form-group">
+          <label class="col-xs-3 col-md-4 control-label">{{::'us.volunteer.createUser.fullname' | translate}}</label>
+          <div class="col-xs-9 col-md-8">
+            <input type="text" maxlength="100" class="form-control" ng-disabled="true" value="{{volunteer.lastName}} {{volunteer.firstName}}" name="fullName"/>
+          </div>
+        </div>
+      
+        <!-- E-mail εθελοντή -->
+        <div class="form-group">
+          <label class="col-xs-3 col-md-4 control-label">{{::'us.volunteer.createUser.email' | translate}}</label>
+          <div class="col-xs-9 col-md-8">
+            <input type="text" class="form-control" ng-disabled="true" value="{{volunteer.email}}" name="email"/>
+          </div>
+        </div>
+      
+        <!-- Εκλογικό Κέντρο εθελοντή -->
+        <div class="form-group">
+          <label class="col-xs-3 col-md-4 control-label">{{::'us.volunteer.createUser.electionCenter' | translate}}</label>
+          <div class="col-xs-9 col-md-8">
+            <input type="text" class="form-control" ng-disabled="true" value="{{volunteer.electionCenterDisplayName}}" name="electionCenter"/>
+          </div>
+        </div>
+      
+        <!-- Εκλογικό τμήμα εθελοντή -->
+        <div class="form-group">
+          <label class="col-xs-3 col-md-4 control-label">{{::'us.volunteer.createUser.electionDepartment' | translate}}</label>
+          <div class="col-xs-9 col-md-8">
+            <input type="text" class="form-control" ng-disabled="true" value="{{volunteer.electionDepartmentDisplayName}}" name="electionDepartment"/>
+          </div>
+        </div>
+      
+        <!-- Username νέου χρήστη -->
+        <div class="form-group">
+          <label class="col-xs-3 col-md-4 control-label">{{::'global.register.username' | translate}}</label>
+          <div class="col-xs-9 col-md-8">
+            <input type="text" class="form-control" ng-disabled="true" ng-model="args.username" name="username"/>
+          </div>
+        </div>
+        
+        <div class="alert-warning margin-top-10">&nbsp;<i class="fa fa-warning"></i>&nbsp;&nbsp;{{::'us.volunteer.createUser.passwordPrompt' | translate}}</div>
+                
+        <!-- Password νέου χρήστη -->
+        <div class="form-group">
+          <label class="col-xs-3 col-md-4 control-label">{{::'global.register.password' | translate}}</label>
+          <div class="col-xs-9 col-md-8">
+            <input type="password" maxlength="100" class="form-control" ng-model="args.password" name="password"/>
+          </div>
+        </div>
+            
+        <!-- Password confirmation νέου χρήστη -->
+        <div class="form-group">
+          <label class="col-xs-3 col-md-4 control-label">{{::'global.register.passwordRepeat' | translate}}</label>
+          <div class="col-xs-9 col-md-8">
+            <input type="password" maxlength="100" class="form-control" ng-model="args.passwordConfirmation" name="passwordConfirmation"/>
+            <span ng-show="args.password != args.passwordConfirmation" class="darkRedColor">{{::'us.volunteer.assignment.errors.passwordsDoNotMatch' | translate}}></span>
+          </div>
+        </div>
+      
+      </div>
+      
+    </fieldset>
+  
+  
+  </form>
+  
+</div>
+
+<div class="modal-footer cr-btn-group-actions">
+  <button class="btn btn-primary" type="button" ng-click="confirm()" ng-if="::hasPermission('sa.user')">
+    <small>{{::'global.confirm' | translate}}</small>
+  </button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">
+    <small>{{::'global.cancel' | translate}}</small>
+  </button>
+</div>

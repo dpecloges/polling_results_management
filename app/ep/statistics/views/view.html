@@ -1,0 +1,126 @@
+<div id="content">
+
+  <section>
+
+    <div class="row">
+
+      <article class="col-xs-12">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">{{::'global.args' | translate}}</div>
+          <div class="panel-body cr-panel-args">
+
+            <form class="form-horizontal">
+              <fieldset>
+
+                <div class="col-xs-12 col-md-6">
+                  <div class="form-group">
+                    <label class="control-label col-xs-3 col-md-4">{{::'ep.statistics.list.args.area' | translate}}</label>
+                    <div class="col-xs-9 col-md-8">
+                      <select class="form-control"
+                        name="type"
+                        chosen="{{::$root.chosenAttrs}}"
+                        ng-model="args.type"
+                        ng-options="area.value as area.label for area in areas">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                  
+                <div class="col-xs-12 col-md-6">
+                  <div class="cr-chart-footer-div" ng-if="calculationDates.calculationDateTime">
+                    {{::'ep.snapshot.view.calculationDateTime' | translate}}:&nbsp;{{calculationDates.calculationDateTime | date:'HH:mm:ss'}}
+                  </div>
+                  <div class="cr-chart-footer-div" ng-if="calculationDates.nextCalculationDateTime">
+                    {{::'ep.snapshot.view.nextCalculationDateTime' | translate}}:&nbsp;{{calculationDates.nextCalculationDateTime | date:'HH:mm:ss'}}
+                  </div>
+                </div>
+
+              </fieldset>
+
+              <div class="cr-btn-group cr-btn-group-centered">
+
+                <hr/>
+
+                <button type="submit" ng-if="::hasPermission('ep.snapshot')"
+                  class="btn btn-primary" ng-click="retrieveGridData()"
+                  ng-disabled="indexLoading"
+                  button-spinner="indexLoading"
+                  button-prepend="fa fa-search">
+                  <small>{{::'global.retrieve'| translate}}</small>
+                </button>
+
+                <button type="button" ng-if="::hasPermission('ep.snapshot')" class="btn btn-info" ng-click="clearArguments()">
+                  <i class="fa fa-trash"></i>
+                  <small>{{::'global.clear'| translate}}</small>
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <!-- Success/Error Messages -->
+        <success-error alerts="alerts"></success-error>
+      </div>
+      
+      <div class="col-xs-12 col-sm-6">
+        <view-jq-grid
+          grid-id="top-verifications-grid"
+          grid-data="topVerificationsGridData"
+          load-complete="stopIndexLoading()"
+          load-error="errorIndexLoading()"
+          parent-width="true"
+          grid-complete="dataLoaded('top-verifications-grid')"
+          double-click="gotoSnapshot(id, 'top-verifications-grid')">
+        </view-jq-grid>
+      </div>
+      
+      <div class="col-xs-12 col-sm-6">
+        <view-jq-grid
+          grid-id="lowest-verifications-grid"
+          grid-data="lowestVerificationsGridData"
+          load-complete="stopIndexLoading()"
+          load-error="errorIndexLoading()"
+          parent-width="true"
+          double-click="gotoSnapshot(id, 'lowest-verifications-grid')">
+        </view-jq-grid>
+      </div>
+    </div>
+    
+    <br>
+    
+    <div class="row">
+      <article class="col-xs-12 col-sm-6">
+        <view-jq-grid
+          grid-id="top-undovotes-grid"
+          grid-data="topUndoVotesGridData"
+          load-complete="stopIndexLoading()"
+          load-error="errorIndexLoading()"
+          parent-width="true"
+          double-click="gotoSnapshot(id, 'top-undovotes-grid')">
+        </view-jq-grid>
+      </article>
+      
+      <article class="col-xs-12 col-sm-6">
+        <view-jq-grid
+          grid-id="lowest-undovotes-grid"
+          grid-data="lowestUndoVotesGridData"
+          load-complete="stopIndexLoading()"
+          load-error="errorIndexLoading()"
+          parent-width="true"
+          double-click="gotoSnapshot(id, 'lowest-undovotes-grid')">
+        </view-jq-grid>
+      </article>
+    </div>
+
+  </section>
+
+</div>

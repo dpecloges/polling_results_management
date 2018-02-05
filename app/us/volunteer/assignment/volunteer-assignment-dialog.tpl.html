@@ -1,0 +1,133 @@
+<div class="modal-header cr-modal-header">
+  <h4 class="modal-title">{{volunteer.lastName}} {{volunteer.firstName}}: {{::'us.volunteer.list.grid.extraActions.assign' | translate}}</h4>
+</div>
+
+
+<div class="modal-body">
+  <div class="form-horizontal">
+    <div class="col-xs-12 no-padding">
+
+      <!-- Γεωγραφικά στοιχεία -->
+      <div class="col-sm-6 no-padding-left">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            {{::'us.volunteer.assignment.electiondepartment.list.args' | translate}}
+          </div>
+          <div class="panel-body cr-panel-args">
+            <admin-unit
+            	geographical-unit-id="args.geographicalUnitId"
+            	decentral-admin-id="args.decentralAdminId"
+            	region-id="args.regionId"
+            	regional-unit-id="args.regionalUnitId"
+            	municipality-id="args.municipalityId"
+            	municipal-unit-id="args.municipalUnitId"
+            	foreign="args.foreign"
+            	foreign-country-iso-code="args.foreignCountryIsoCode"
+            	foreign-city="args.foreignCity">
+      		</admin-unit>
+            <div class="cr-btn-group-actions cr-btn-group-centered padding-bottom-5">
+              <hr/>
+              <button type="button" class="btn btn-primary" ng-click="retrieveGridData()" ng-disabled="indexLoading" button-spinner="indexLoading"
+                      button-prepend="fa fa-search" ng-if="::hasPermission('mg.electiondepartment')">
+                <small>{{::'global.retrieve' | translate}}</small>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Στοιχεία μέλους -->
+      <div class="col-sm-6 no-padding-right">
+        <div class="panel panel-default">
+          <div class="panel-heading-alt">
+            {{::'us.volunteer.assignment.form' | translate}}
+          </div>
+          <div class="panel-body cr-panel-args">
+          <div class="form-horizonal">
+            <div class="form-group">
+              <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.contributions.add.type' | translate}}</label>
+              <div class="col-xs-9 col-md-8">
+                <select chosen="{{::chosenAttrs}}" class="form-control" 
+                        ng-model="contributionType"
+                        ng-options="opt.id as opt.name for opt in contributionTypeOptions" 
+                        ng-change="contributionTypeChanged()">
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group" ng-show="contributionType === 'CANDIDATE_REPRESENTATIVE'">
+              <label class="col-xs-3 col-md-4 control-label">{{::'mg.electiondepartment.view.contributions.add.candidateId' | translate}}</label>
+              <div class="col-xs-9 col-md-8">
+                <select chosen="{{::chosenAttrs}}" class="form-control" 
+                        ng-model="contributionCandidateId"
+                        ng-options="opt.id as (opt.lastName + ' ' + opt.firstName) for opt in candidates">
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-xs-3 col-md-4 control-label">{{::'us.volunteer.assignment.options.createUserOption' | translate}}</label>
+              <div class="col-xs-9 col-md-8">
+                <select chosen="{{::chosenAttrs}}" class="form-control" 
+                        ng-model="userCreationOption"
+                        ng-options="opt.id as opt.name for opt in userCreationOptions" 
+                        ng-change="userCreationOptionChanged()"
+                        ng-disabled="userCreationOptionsDisabled"
+                        >
+                </select>
+              </div>
+            </div>
+            
+            <div ng-show="userCreationOption == 'NOTIFY'" class="alert-info margin-top-10">&nbsp;<i class="fa fa-info"></i>&nbsp;&nbsp;{{::'us.volunteer.assignment.options.createUserOption.NOTIFY.info' | translate:volunteer}}</div>
+            <div ng-show="userCreationOption == 'CREATE_NOW'" class="alert-warning margin-top-10">&nbsp;<i class="fa fa-warning"></i>&nbsp;&nbsp;{{::'us.volunteer.createUser.passwordPrompt' | translate}}</div>
+            
+            <!-- Username νέου χρήστη -->
+            <div class="form-group" ng-show="userCreationOption == 'CREATE_NOW'">
+              <label class="col-xs-3 col-md-4 control-label">{{::'global.register.username' | translate}}</label>
+              <div class="col-xs-9 col-md-8">
+                <input type="text" maxlength="100" class="form-control" ng-disabled="true" ng-model="username" name="username"/>
+              </div>
+            </div>
+                
+            <!-- Password νέου χρήστη -->
+            <div class="form-group" ng-show="userCreationOption == 'CREATE_NOW'">
+              <label class="col-xs-3 col-md-4 control-label">{{::'global.register.password' | translate}}</label>
+              <div class="col-xs-9 col-md-8">
+                <input type="password" maxlength="100" class="form-control" ng-model="password" name="password"/>
+              </div>
+            </div>
+                
+            <!-- Password confirmation νέου χρήστη -->
+            <div class="form-group" ng-show="userCreationOption == 'CREATE_NOW'">
+              <label class="col-xs-3 col-md-4 control-label">{{::'global.register.passwordRepeat' | translate}}</label>
+              <div class="col-xs-9 col-md-8">
+                <input type="password" maxlength="100" class="form-control" ng-model="passwordConfirmation" name="passwordConfirmation"/>
+                <span ng-show="password != passwordConfirmation" class="darkRedColor">{{::'us.volunteer.assignment.errors.passwordsDoNotMatch' | translate}}></span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div> 
+  </div> <!-- form-horizontal -->
+  
+  <div class="row">
+    <article class="col-sm-12">
+      <view-jq-grid grid-id="{{::gridId}}" grid-data="gridData" parent-width="true" double-click="doubleClick(id)" load-complete="stopIndexLoading()"
+                    load-error="errorIndexLoading()"></view-jq-grid>
+    </article>
+  </div>
+  
+</div> <!-- modal-body -->
+
+<div class="modal-footer cr-btn-group-actions">
+  <button class="btn btn-primary" type="button" ng-click="confirm()" ng-if="::hasPermission('mg.electiondepartment')">
+    <small>{{::'global.confirm' | translate}}</small>
+  </button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">
+    <small>{{::'global.cancel' | translate}}</small>
+  </button>
+</div>
+

@@ -1,0 +1,21 @@
+<article class="input-group">
+    <!--ng-required="{{options.required}}"-->
+    <input type="text" class="form-control"
+           datepicker-popup="{{options.format}}"
+           name="{{name}}"
+           id="{{name}}Id"
+           ng-class="{field_required: actrequired && !model}"
+           min-date="mindate"
+           max-date="maxdate"
+           ui-mask="99/99/9999"
+           model-view-value="true"
+           ng-model="model"
+           ng-change="dateChanged()"
+           ng-model-options="{allowInvalid: true}"
+           ng-disabled="disabled || (changeable && !changeable({elem: name}))" is-open="opened" datepicker-options="options"/>
+
+    <span class="input-group-btn width-30">
+        <button type="button" class="btn btn-default inputGroupBtn" ng-click="open($event)" ng-disabled="disabled || (changeable && !changeable({elem: name}))" ><i class="fa fa-calendar"></i></button>
+    </span>
+</article>
+

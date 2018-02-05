@@ -1,0 +1,130 @@
+<div>
+  <!-- Ένδειξη ξένης χώρας -->
+  <div class="form-group" ng-show="!hideForeignOption">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'mg.electioncenter.view.foreign' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <cr-checkbox name="foreign" model="foreign" change="foreignChanged(foreign)"></cr-checkbox>
+    </div>
+  </div>
+  
+  <!-- Γεωγραφική Ενότητα -->
+  <div class="form-group" ng-show="!foreign && !hideGeographicalUnit">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'common.geographicalUnit' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <select class="form-control"
+        name="{{::name}}geographicalUnitId"
+        chosen="{{::$root.chosenAttrs}}"
+        ng-model="geographicalUnitId"
+        ng-disabled="disabled"
+        ng-change="geographicalUnitChanged(geographicalUnitId)"
+        ng-options="item.id as formatName(item) for item in geographicalUnits">
+      <option value=""></option>
+    </select>
+    </div>
+  </div>
+  
+  <!-- Αποκεντρωμένη Διοίκηση -->
+  <div class="form-group" ng-show="!foreign && !hideDecentralAdmin">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'common.decentralAdmin' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <select class="form-control"
+        name="{{::name}}decentralAdminId"
+        chosen="{{::$root.chosenAttrs}}"
+        ng-model="decentralAdminId"
+        ng-disabled="disabled"
+        ng-change="decentralAdminChanged(decentralAdminId)"
+        ng-options="item.id as formatName(item) for item in decentralAdmins">
+        <option value=""></option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Περιφέρεια -->
+  <div class="form-group" ng-show="!foreign && !hideRegion">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'common.region' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <select class="form-control"
+        name="{{::name}}regionId"
+        chosen="{{::$root.chosenAttrs}}"
+        ng-model="regionId"
+        ng-disabled="disabled"
+        ng-change="regionChanged(regionId)"
+        ng-options="item.id as formatName(item) for item in regions">
+      <option value=""></option>
+    </select>
+    </div>
+  </div>
+  
+  <!-- Περιφερειακή Ενότητα -->
+  <div class="form-group" ng-show="!foreign && !hideRegionalUnit">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'common.regionalUnit' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <select class="form-control"
+        name="{{::name}}regionalUnitId"
+        chosen="{{::$root.chosenAttrs}}"
+        ng-model="regionalUnitId"
+        ng-disabled="disabled"
+        ng-change="regionalUnitChanged(regionalUnitId)"
+        ng-options="item.id as formatName(item) for item in regionalUnits">
+        <option value=""></option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Δήμος -->
+  <div class="form-group" ng-show="!foreign && !hideMunicipality">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'common.municipality' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <select class="form-control"
+        name="{{::name}}municipalityId"
+        chosen="{{::$root.chosenAttrs}}"
+        ng-model="municipalityId"
+        ng-disabled="disabled"
+        ng-change="municipalityChanged(municipalityId)"
+        ng-options="item.id as formatName(item) for item in municipalities">
+      <option value=""></option>
+    </select>
+    </div>
+  </div>
+  
+  <!-- Δημοτική Ενότητα -->
+  <div class="form-group" ng-show="!foreign && !hideMunicipalUnit">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'common.municipalUnit' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <select class="form-control"
+        name="{{::name}}municipalUnitId"
+        chosen="{{::$root.chosenAttrs}}"
+        ng-model="municipalUnitId"
+        ng-disabled="disabled"
+        ng-change="municipalUnitChanged(municipalUnitId)"
+        ng-options="item.id as formatName(item) for item in municipalUnits">
+        <option value=""></option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Ξένη χώρα -->
+  <div class="form-group" ng-show="foreign">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'common.country' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <select class="form-control"
+        name="{{::name}}foreignCountryIsoCode"
+        chosen="{{::$root.chosenAttrs}}"
+        ng-model="foreignCountryIsoCode"
+        ng-disabled="disabled"
+        ng-change="countryChanged(foreignCountryIsoCode)"
+        ng-options="item.isoCode as item.name for item in countries">
+        <option value=""></option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Πόλη ξένης χώρας -->
+  <div class="form-group" ng-show="foreign && !hideForeignCity">
+    <label class="control-label" ng-class="{ 'col-xs-3 col-md-4': !horizontalLayout }">{{::'common.foreignCity' | translate}}</label>
+    <div ng-class="{ 'col-xs-9 col-md-8': !horizontalLayout }">
+      <input type="text" class="form-control" ng-model="foreignCity" name="{{::name}}foreignCity"/>
+    </div>
+  </div>
+
+</div>

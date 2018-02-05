@@ -1,0 +1,114 @@
+<div id="content">
+  
+  <div class="cr-btn-group-actions">
+    
+    <button type="button" class="btn btn-white btn-success" ng-disabled="saveLoading || deleteLoading" button-spinner="saveLoading"
+            button-prepend="fa fa-floppy-o" ng-click="saveUser()" ng-show="!user.id || user.willChangePassword" ng-if="::hasPermission('sa.user')">
+      <small>{{::'global.save' | translate}}</small>
+    </button>
+    
+    <button type="button" class="btn btn-white btn-danger" ng-disabled="deleteLoading || saveLoading" button-spinner="deleteLoading"
+            button-prepend="fa fa-trash" ng-click="deleteUser()" ng-show="$stateParams.id" ng-if="::hasPermission('sa.user')">
+      <small>{{::'global.delete' | translate}}</small>
+    </button>
+    
+    <hr/>
+  
+  </div>
+  
+  <!-- Success/Error Messages -->
+  <success-error alerts="alerts"></success-error>
+  
+  <section>
+    
+    <form id="userForm" name="userForm" class="form-horizontal" exit-confirmation>
+      
+      <div class="row">
+        
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">{{::'us.user.view.generalData'| translate}}</div>
+            <div class="panel-body">
+              
+              <article class="col-xs-12 col-md-12">
+                
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'us.user.view.username' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="user.username" ng-readonly="user.id"/>
+                  </div>
+                </div>
+                
+                <div class="cr-btn-group cr-btn-group-centered" ng-show="user.id && !user.willChangePassword">
+                  <button type="button" class="btn btn-white btn-warning" ng-click="user.willChangePassword = true">
+                    <small><i class="fa fa-pencil-square-o"></i>&nbsp;{{::'us.user.view.changePassword' | translate}}</small>
+                  </button>
+                </div>
+                
+                <div class="form-group" ng-show="!user.id || user.willChangePassword">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'us.user.view.password' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="password" class="form-control" ng-model="user.password"/>
+                  </div>
+                </div>
+                
+                <div class="form-group" ng-show="!user.id || user.willChangePassword">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'us.user.view.passwordRepeat' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="password" class="form-control" ng-model="user.passwordRepeat"/>
+                  </div>
+                </div>
+                
+                <hr/>
+                
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'us.user.view.email' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="user.email" ng-readonly="user.id"/>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'us.user.view.lastName' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="user.lastName" ng-readonly="user.id"/>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'us.user.view.firstName' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <input type="text" class="form-control" ng-model="user.firstName" ng-readonly="user.id"/>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'us.user.view.electionDepartmentId' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="user.electionDepartmentId" ng-disabled="user.id" ng-options="item.id as item.displayName for item in electionDepartments">
+                      <option value=""></option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-xs-3 col-md-4 control-label">{{::'us.user.view.roleId' | translate}}</label>
+                  <div class="col-xs-9 col-md-8">
+                    <select chosen="{{::chosenAttrs}}" class="form-control" ng-model="user.roleId" ng-disabled="user.id" ng-options="item.id as item.name for item in roles">
+                      <option value=""></option>
+                    </select>
+                  </div>
+                </div>
+                
+              </article>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </form>
+  
+  </section>
+
+</div>

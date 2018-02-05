@@ -1,0 +1,38 @@
+<span>
+  
+  <button type="button" class="btn btn-white btn-warning" ng-disabled="disabled" button-spinner="undoLoading" button-prepend="fa fa-undo" ng-click="openModal()">
+    <small>{{::'ep.verification.view.undoVote.button' | translate}}</small>
+  </button>
+  
+  <script type="text/ng-template" id="undoVoteModal.tpl.html">
+    
+    <div class="modal-header cr-modal-header">
+      <h4 class="modal-title">{{::'ep.verification.view.undoVote.modal.title' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+      
+      <form class="form-horizontal">
+        <fieldset>
+          
+          <label>{{::'ep.verification.view.undoVote.modal.message' | translate}}</label>
+          
+          <div class="col-sm-12">
+            
+            <div class="form-group">
+              <cr-textarea textarea-model="undoReason" rows="3" size="300"></cr-textarea>
+            </div>
+            
+          </div>
+          
+        </fieldset>
+      </form>
+      
+    </div>
+    <div class="modal-footer cr-btn-group-actions">
+      <button class="btn btn-primary" type="button" ng-click="confirm()"><small>{{::'global.confirm' | translate}}</small></button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()"><small>{{::'global.cancel' | translate}}</small></button>
+    </div>
+    
+  </script>
+  
+</span>

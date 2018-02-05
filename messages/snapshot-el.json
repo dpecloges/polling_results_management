@@ -1,0 +1,25 @@
+{
+  "ep.snapshot.view.snapshots": "Εξέλιξη Εκλογικής Διαδικασίας",
+  "ep.snapshot.view.showFilters": "Κριτήρια",
+  "ep.snapshot.view.autoRefresh": "Αυτόματη Ενημέρωση",
+  "ep.snapshot.view.calculationDateTime": "Τελευταία Ενημέρωση",
+  "ep.snapshot.view.nextCalculationDateTime": "Επόμενη Ενημέρωση",
+
+  "ep.snapshot.view.mainTable.unit": "",
+  "ep.snapshot.view.mainTable.analysis": "Ανάλυση",
+  "ep.snapshot.view.mainTable.voterCount": "Διαπιστεύσεις",
+  "ep.snapshot.view.mainTable.undoneVoterCount": "Άρσεις Διαπιστεύσεων",
+  "ep.snapshot.view.mainTable.startedDepartments": "Έναρξη Διαπιστεύσεων",
+  "ep.snapshot.view.mainTable.submittedDepartments": "Αποστολή Αποτελεσμάτων",
+
+  "ep.snapshot.view.mainTable.electionDepartment.shortcut": "Ε.Τ.",
+
+  "ep.snapshot.view.analysis.general": "Ανάλυση",
+  "ep.snapshot.view.analysis.tooltip": "Χρονική Ανάλυση",
+  "ep.snapshot.view.analysis.analysis.title": "Χρονική Ανάλυση Διαπιστεύσεων",
+  "ep.snapshot.view.analysis.voterCount": "Διαπιστεύσεις",
+  "ep.snapshot.view.analysis.voterCountRate": "Ρυθμός Διαπιστεύσεων",
+  "ep.snapshot.view.analysis.undoneVoterCount": "Άρσεις Διαπιστεύσεων",
+
+  "ep.snapshot.view.charts.title.tooltip": "Ώρα"
+}
